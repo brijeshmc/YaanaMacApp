@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="UqI-36-dpL">
+    <device id="retina5_5" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Login Register Controller-->
+        <scene sceneID="616-cg-kYg">
+            <objects>
+                <viewController storyboardIdentifier="LoginRegisterController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="UqI-36-dpL" customClass="LoginRegisterController" customModule="yaana" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Tkr-eT-gDg">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="etv-Wy-6He">
+                                <rect key="frame" x="208" y="676" width="206" height="60"/>
+                                <color key="backgroundColor" red="1" green="0.5" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="60" id="h6c-3X-rKR"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                <state key="normal" title="REGISTER">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="register:" destination="UqI-36-dpL" eventType="touchUpInside" id="Y16-jv-FyJ"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jzK-WO-DmZ">
+                                <rect key="frame" x="0.0" y="676" width="206" height="60"/>
+                                <color key="backgroundColor" red="1" green="0.5" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="60" id="qxb-h2-nuz"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                <state key="normal" title="LOGIN">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="launch_icon.png" translatesAutoresizingMaskIntoConstraints="NO" id="foS-vb-VpH">
+                                <rect key="frame" x="82" y="250.66666666666663" width="250" height="185"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="yaana_background" translatesAutoresizingMaskIntoConstraints="NO" id="KJH-KO-cF7">
+                                <rect key="frame" x="0.0" y="548" width="414" height="120"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="120" id="XSe-70-icA"/>
+                                </constraints>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="D20-QU-id1" firstAttribute="bottom" secondItem="etv-Wy-6He" secondAttribute="bottom" id="47A-2u-sNi"/>
+                            <constraint firstItem="jzK-WO-DmZ" firstAttribute="trailing" secondItem="Tkr-eT-gDg" secondAttribute="centerX" constant="-1" id="Ckg-1H-nAq"/>
+                            <constraint firstItem="D20-QU-id1" firstAttribute="bottom" secondItem="jzK-WO-DmZ" secondAttribute="bottom" id="F9i-Zg-Xdh"/>
+                            <constraint firstItem="D20-QU-id1" firstAttribute="trailing" secondItem="etv-Wy-6He" secondAttribute="trailing" id="H5Q-Ev-nfi"/>
+                            <constraint firstItem="jzK-WO-DmZ" firstAttribute="leading" secondItem="Tkr-eT-gDg" secondAttribute="leading" id="JaW-0t-bgj"/>
+                            <constraint firstItem="KJH-KO-cF7" firstAttribute="leading" secondItem="D20-QU-id1" secondAttribute="leading" id="U1N-Ms-20Y"/>
+                            <constraint firstItem="foS-vb-VpH" firstAttribute="centerX" secondItem="Tkr-eT-gDg" secondAttribute="centerX" id="UZu-GN-2YW"/>
+                            <constraint firstItem="jzK-WO-DmZ" firstAttribute="top" secondItem="KJH-KO-cF7" secondAttribute="bottom" constant="8" symbolic="YES" id="aJA-aE-Nvd"/>
+                            <constraint firstItem="D20-QU-id1" firstAttribute="trailing" secondItem="KJH-KO-cF7" secondAttribute="trailing" id="bwL-vJ-ry7"/>
+                            <constraint firstItem="foS-vb-VpH" firstAttribute="centerY" secondItem="Tkr-eT-gDg" secondAttribute="centerY" constant="-25" id="sJe-VT-gAC"/>
+                            <constraint firstItem="etv-Wy-6He" firstAttribute="leading" secondItem="Tkr-eT-gDg" secondAttribute="centerX" constant="1" id="wuC-h8-ht4"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="D20-QU-id1"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="CI1-C4-xKL" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-18.840579710144929" y="-31.793478260869566"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="launch_icon.png" width="250" height="185"/>
+        <image name="yaana_background" width="638" height="185"/>
+    </resources>
+</document>
