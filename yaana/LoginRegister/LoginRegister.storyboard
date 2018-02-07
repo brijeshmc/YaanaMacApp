@@ -95,7 +95,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" placeholder="Password" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="4Xh-fU-6fM">
-                                <rect key="frame" x="16" y="282" width="343" height="24"/>
+                                <rect key="frame" x="16" y="292" width="343" height="24"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no"/>
@@ -107,7 +107,7 @@
                                 <textInputTraits key="textInputTraits" textContentType="tel"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QzU-zk-L0a">
-                                <rect key="frame" x="46" y="326" width="283" height="30"/>
+                                <rect key="frame" x="46" y="346" width="283" height="30"/>
                                 <color key="backgroundColor" red="1" green="0.5" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="vDr-xa-K86"/>
@@ -121,16 +121,30 @@
                                     <action selector="buttonClick:" destination="3xu-N6-Ya9" eventType="touchUpInside" id="p5s-aX-9dw"/>
                                 </connections>
                             </button>
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Mobile number is required" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Uv7-Z3-Dgc">
+                                <rect key="frame" x="16" y="261" width="343" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Password is required" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vp2-P2-JOk">
+                                <rect key="frame" x="16" y="317" width="343" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="QzU-zk-L0a" firstAttribute="top" secondItem="4Xh-fU-6fM" secondAttribute="bottom" constant="20" id="1SA-w7-ZZu"/>
+                            <constraint firstItem="QzU-zk-L0a" firstAttribute="top" secondItem="4Xh-fU-6fM" secondAttribute="bottom" constant="30" id="1SA-w7-ZZu"/>
                             <constraint firstItem="a35-Js-hKj" firstAttribute="top" secondItem="rq6-mJ-K9U" secondAttribute="top" constant="150" id="2se-Mi-Ezb"/>
                             <constraint firstItem="QzU-zk-L0a" firstAttribute="leading" secondItem="mM6-u3-SHF" secondAttribute="leading" constant="30" id="7ME-c5-0ba"/>
                             <constraint firstItem="mM6-u3-SHF" firstAttribute="trailing" secondItem="QzU-zk-L0a" secondAttribute="trailing" constant="30" id="Es4-v8-7Bg"/>
                             <constraint firstItem="mM6-u3-SHF" firstAttribute="trailing" secondItem="4Xh-fU-6fM" secondAttribute="trailing" id="FOH-7G-igP"/>
                             <constraint firstItem="mM6-u3-SHF" firstAttribute="leading" secondItem="4Xh-fU-6fM" secondAttribute="leading" id="Nnp-AP-TdP"/>
-                            <constraint firstItem="4Xh-fU-6fM" firstAttribute="top" secondItem="mM6-u3-SHF" secondAttribute="bottom" constant="20" id="Rzq-Gi-H0a"/>
+                            <constraint firstItem="4Xh-fU-6fM" firstAttribute="top" secondItem="mM6-u3-SHF" secondAttribute="bottom" constant="30" id="Rzq-Gi-H0a"/>
                             <constraint firstItem="mM6-u3-SHF" firstAttribute="trailing" secondItem="DOy-iM-6Eh" secondAttribute="trailingMargin" id="amo-DK-zkK"/>
                             <constraint firstItem="QzU-zk-L0a" firstAttribute="centerX" secondItem="4Xh-fU-6fM" secondAttribute="centerX" id="eJN-Mw-iBe"/>
                             <constraint firstItem="mM6-u3-SHF" firstAttribute="top" secondItem="a35-Js-hKj" secondAttribute="bottom" constant="20" id="fRc-3B-0DN"/>
@@ -142,6 +156,8 @@
                     <connections>
                         <outlet property="mobileNumber" destination="mM6-u3-SHF" id="Oae-fV-x05"/>
                         <outlet property="password" destination="4Xh-fU-6fM" id="sw3-c3-FhQ"/>
+                        <outlet property="passwordErrorLabel" destination="vp2-P2-JOk" id="vMZ-FC-c54"/>
+                        <outlet property="userNameErrorLabel" destination="Uv7-Z3-Dgc" id="g7h-ds-zc5"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vuS-WF-Yah" userLabel="First Responder" sceneMemberID="firstResponder"/>
