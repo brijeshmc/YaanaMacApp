@@ -2,8 +2,6 @@
 import UIKit
 
 class LoginController : UIViewController {
-
-    let MOBILE_PATTERN : String = "[0-9]{10}";
     
     @IBOutlet weak var userNameErrorLabel: UILabel!
     
@@ -32,7 +30,7 @@ class LoginController : UIViewController {
             let passwordItem = URLQueryItem(name: "password", value: password.text)
             urlComponents.queryItems = [userNameItem,passwordItem]
             guard let url = urlComponents.url else {
-                self.view.showToast(toastMessage: "Internal Server Error", duration: 3.0)
+
                 return
             }
             
@@ -48,7 +46,6 @@ class LoginController : UIViewController {
                 // 1: Check HTTP Response for successful GET request
                 guard let httpResponse = response as? HTTPURLResponse, let receivedData = data
                     else {
-                        self.view.showToast(toastMessage: "Internal Server Error", duration: 3.0)
                         return
                 }
                 
@@ -65,13 +62,19 @@ class LoginController : UIViewController {
                         KeychainWrapper.standard.set(userLoginDomain.userDomain.email, forKey:"yaana_email")
                         KeychainWrapper.standard.set(userLoginDomain.userDomain.mobileNo, forKey:"yaana_mobile_no")
 
+                        DispatchQueue.main.async(execute: {
+                            self.view.makeToast(message: "Login Successful", duration: 2.0, position: HRToastPositionDefault as AnyObject)
+                            
+                            }
+                        )
+
                     } catch {
-                        self.view.showToast(toastMessage: "Internal Server Error", duration: 3.0)
+
                         return
                     }
                     
                 default:
-                    self.view.showToast(toastMessage: "Internal Server Error", duration: 3.0)
+                    return
                 }
             }
             dataTask.resume()
@@ -98,7 +101,16 @@ class LoginController : UIViewController {
             return false
         }
         else{
-            
+            //let emailFormat = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
+            //let emailPredicate = NSPredicate(format:"SELF MATCHES %@", mo)
+            //return emailPredicate.evaluate(with: enteredEmail)
+            let mobilePattern : String = "[0-9]{10}";
+            let mobilePredicate = NSPredicate(format:"SELF MATCHES %@", mobilePattern)
+            if(!mobilePredicate.evaluate(with: userName)){
+                invalidUserNameLabel.text = "Invalid mobile number"
+                invalidUserNameLabel.isHidden = false
+                return false
+            }
         }
         invalidUserNameLabel.isHidden = true
         return true
