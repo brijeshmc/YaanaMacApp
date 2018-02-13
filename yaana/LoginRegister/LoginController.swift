@@ -7,16 +7,22 @@ class LoginController : UIViewController {
     
     @IBOutlet weak var passwordErrorLabel: UILabel!
     
-    @IBOutlet weak var mobileNumber: UITextField!
+    @IBOutlet weak var mobileNumberField: UITextField!
     
-    @IBOutlet weak var password: UITextField!
+    @IBOutlet weak var passwordField: UITextField!
+    
+    var mobileNumber : String = ""
+    var password : String = ""
     		
     //@IBOutlet weak var loginButtonText: UIButton!
     
     @IBAction func buttonClick(_ sender: Any) {
+        mobileNumber = mobileNumberField.text!.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+        password = passwordField.text!.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
         
-        let isUserNameValid : Bool = validateUserName(userName: mobileNumber.text!, invalidUserNameLabel: userNameErrorLabel)
-        let isPasswordValid : Bool = validatePassword(password: password.text!, invalidPasswordLabel: passwordErrorLabel)
+        let isPasswordValid : Bool = validatePassword(password: password)
+        let isUserNameValid : Bool = validateUserName(userName: mobileNumber)
+        
         if (isUserNameValid && isPasswordValid) {
             let configuration = URLSessionConfiguration .default
             let session = URLSession(configuration: configuration)
@@ -26,8 +32,8 @@ class LoginController : UIViewController {
             urlComponents.host = AppUrl.host
             urlComponents.port = AppUrl.port
             urlComponents.path = "/token/yaana/login"
-            let userNameItem = URLQueryItem(name: "userName", value: mobileNumber.text)
-            let passwordItem = URLQueryItem(name: "password", value: password.text)
+            let userNameItem = URLQueryItem(name: "userName", value: mobileNumber)
+            let passwordItem = URLQueryItem(name: "password", value: password)
             urlComponents.queryItems = [userNameItem,passwordItem]
             guard let url = urlComponents.url else {
 
@@ -84,46 +90,47 @@ class LoginController : UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        mobileNumber.becomeFirstResponder()
+        mobileNumberField.becomeFirstResponder()
         
     }
-    
+    	
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
-    func validateUserName(userName : String, invalidUserNameLabel : UILabel) -> Bool{
+    func validateUserName(userName : String) -> Bool{
         
-        if(userName.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines).count == 0){
-            invalidUserNameLabel.text = "Mobile number is required"
-            invalidUserNameLabel.isHidden = false
+        if(userName.count == 0){
+            userNameErrorLabel.text = "Mobile number is required"
+            userNameErrorLabel.isHidden = false
+            mobileNumberField.becomeFirstResponder()
             return false
         }
         else{
-            //let emailFormat = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
-            //let emailPredicate = NSPredicate(format:"SELF MATCHES %@", mo)
-            //return emailPredicate.evaluate(with: enteredEmail)
             let mobilePattern : String = "[0-9]{10}";
             let mobilePredicate = NSPredicate(format:"SELF MATCHES %@", mobilePattern)
             if(!mobilePredicate.evaluate(with: userName)){
-                invalidUserNameLabel.text = "Invalid mobile number"
-                invalidUserNameLabel.isHidden = false
+                userNameErrorLabel.text = "Invalid mobile number"
+                userNameErrorLabel.isHidden = false
+                mobileNumberField.becomeFirstResponder()
                 return false
             }
         }
-        invalidUserNameLabel.isHidden = true
+        userNameErrorLabel.isHidden = true
         return true
     }
     
-    func validatePassword(password : String, invalidPasswordLabel : UILabel) -> Bool{
+    func validatePassword(password : String) -> Bool{
         
-        if(password.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines).count == 0){
-            invalidPasswordLabel.text = "Password is required"
-            invalidPasswordLabel.isHidden = false
+        if(password.count == 0){
+            passwordErrorLabel.text = "Password is required"
+            passwordErrorLabel.isHidden = false
+            passwordField.becomeFirstResponder()
             return false
         }
-        invalidPasswordLabel.isHidden = true
+        passwordErrorLabel.isHidden = true
         return true
     }
+
 }
