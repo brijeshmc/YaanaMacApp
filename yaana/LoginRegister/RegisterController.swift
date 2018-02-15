@@ -23,6 +23,16 @@ class RegisterController : UIViewController {
     var confirmPasswordValue : String = ""
     var dateOfBirthValue : String = ""
     
+    @IBAction func dateOfBirthTapped(_ sender: UITextField) {
+        let datePickerView  : UIDatePicker = UIDatePicker()
+        datePickerView.datePickerMode = UIDatePickerMode.date
+        sender.inputView = datePickerView
+        datePickerView.addTarget(self, action: #selector(self.handleDatePicker(sender:)), for: UIControlEvents.valueChanged)
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd-MM-yyyy"
+        dateOfBirth.text = dateFormatter.string(from: datePickerView.date)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -35,7 +45,23 @@ class RegisterController : UIViewController {
     }
     
     @IBAction func registerButtonClick(_ sender: Any) {
-        //let isDisplayNameValid = validateDisplayName(displayName : displayName.text!, invalidDisplayNameLabel : displayNameErrorLabel )
+        displayNameValue = displayName.text!.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+        emailValue = email.text!.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+        mobileNumberValue = mobileNumber.text!.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+        passwordValue = password.text!.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+        confirmPasswordValue = confirmPassword.text!.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+        dateOfBirthValue = dateOfBirth.text!.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+        
+        let isDobValid = validateDateOfBirth(dateOfBirthValue : dateOfBirthValue)
+        let isConfirmPasswordValid = validateConfirmPassword(confirmPasswordValue: confirmPasswordValue, password: passwordValue)
+        let isPasswordValid = validatePassword(passwordValue: passwordValue)
+        let isMobileNumberValid = validateMobileNumber(mobileNumberValue: mobileNumberValue)
+        let isEmailValid = validateEmail(emailValue: emailValue)
+        let isDisplayNameValid = validateDisplayName(displayNameValue : displayNameValue)
+
+        if(isDobValid && isConfirmPasswordValid && isPasswordValid && isMobileNumberValid && isEmailValid && isDisplayNameValid){
+            
+        }
     }
     
     func validateDisplayName(displayNameValue : String) -> Bool{
@@ -103,6 +129,7 @@ class RegisterController : UIViewController {
         if(mobileNumberValue.count == 0){
             mobileNumberErrorLabel.text = "Mobile number is required"
             mobileNumberErrorLabel.isHidden = false
+            mobileNumber.becomeFirstResponder()
             return false
         }
         else{
@@ -111,6 +138,7 @@ class RegisterController : UIViewController {
             if(!mobilePredicate.evaluate(with: mobileNumberValue)){
                 mobileNumberErrorLabel.text = "Invalid mobile number"
                 mobileNumberErrorLabel.isHidden = false
+                mobileNumber.becomeFirstResponder()
                 return false
             }
         }
@@ -123,20 +151,50 @@ class RegisterController : UIViewController {
         if(passwordValue.count == 0){
             passwordErrorLabel.text = "Password is required"
             passwordErrorLabel.isHidden = false
+            password.becomeFirstResponder()
             return false
+        }
+        else{
+            if(passwordValue.count > 50){
+                passwordErrorLabel.text = "Maximum 50 charecters allowed"
+                passwordErrorLabel.isHidden = false
+                password.becomeFirstResponder()
+                return false
+            }
         }
         passwordErrorLabel.isHidden = true
         return true
     }
     
-    func validateConfirmPassword(confirmPasswordValue : String) -> Bool{
+    func validateConfirmPassword(confirmPasswordValue : String, password : String) -> Bool{
         
         if(confirmPasswordValue.count == 0){
             confirmPasswordErrorLabel.text = "Confirm password is required"
             confirmPasswordErrorLabel.isHidden = false
+            confirmPassword.becomeFirstResponder()
             return false
+        }
+        else{
+            if(confirmPasswordValue != password){
+                confirmPasswordErrorLabel.text = "Password and Confirm password do not match"
+                confirmPasswordErrorLabel.isHidden = false
+                confirmPassword.becomeFirstResponder()
+                return false
+            }
         }
         confirmPasswordErrorLabel.isHidden = true
         return true
+    }
+    
+    func validateDateOfBirth(dateOfBirthValue : String) -> Bool {
+        
+        dobErrorLabel.isHidden = true
+        return true
+    }
+    
+    @objc func handleDatePicker(sender: UIDatePicker) {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd-MM-yyyy"
+        dateOfBirth.text = dateFormatter.string(from: sender.date)
     }
 }
