@@ -30,7 +30,13 @@ class RegisterController : UIViewController {
         datePickerView.addTarget(self, action: #selector(self.handleDatePicker(sender:)), for: UIControlEvents.valueChanged)
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "dd-MM-yyyy"
-        dateOfBirth.text = dateFormatter.string(from: datePickerView.date)
+        if(dateOfBirth.text!.count == 0){
+            dateOfBirth.text = dateFormatter.string(from: datePickerView.date)
+        }
+        else{
+            let date = dateFormatter.date(from: dateOfBirth.text!)
+            datePickerView.date = date!
+        }
     }
     
     override func viewDidLoad() {
@@ -187,7 +193,64 @@ class RegisterController : UIViewController {
     }
     
     func validateDateOfBirth(dateOfBirthValue : String) -> Bool {
-        
+        if(dateOfBirthValue.count == 0){
+            dobErrorLabel.text = "Date of birth is required"
+            dobErrorLabel.becomeFirstResponder()
+            dobErrorLabel.isHidden = false
+            return false
+        }
+        else{
+            let datePickerView  : UIDatePicker = UIDatePicker()
+            datePickerView.datePickerMode = UIDatePickerMode.date
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "dd-MM-yyyy"
+            
+            var dob = dateOfBirthValue.split(separator: "-")
+            var cDate = dateFormatter.string(from: datePickerView.date).split(separator: "-")
+            let day = dob[0]
+            let month = dob[1]
+            let year = dob[2]
+            
+            let cDay = cDate[0]
+            let cMonth = cDate[1]
+            let cYear = cDate[2]
+            
+            let diffYear = Int(cYear)! - Int(year)! - 14
+            let diffMonth = Int(cMonth)! - Int(month)!
+            let diffDayOfMonth = Int(cDay)! - Int(day)!
+            
+            if(diffYear < 0){
+                if(diffYear < -14) {
+                    dobErrorLabel.text = "Invalid date of birth"
+                }
+                else{
+                    dobErrorLabel.text = "Age restricted to minimum 14 years"
+                }
+                dateOfBirth.becomeFirstResponder()
+                dobErrorLabel.isHidden = false
+                return false;
+            }
+            else{
+                if(diffYear == 0){
+                    if(diffMonth < 0){
+                        dobErrorLabel.text = "Age restricted to minimum 14 years"
+                        dateOfBirth.becomeFirstResponder()
+                        dobErrorLabel.isHidden = false
+                        return false;
+                    }
+                    else{
+                        if(diffMonth == 0){
+                            if(diffDayOfMonth < 0){
+                                dobErrorLabel.text = "Age restricted to minimum 14 years"
+                                dateOfBirth.becomeFirstResponder()
+                                dobErrorLabel.isHidden = false
+                                return false;
+                            }
+                        }
+                    }
+                }
+            }
+        }
         dobErrorLabel.isHidden = true
         return true
     }

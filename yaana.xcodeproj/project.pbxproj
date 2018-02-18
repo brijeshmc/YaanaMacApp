@@ -23,6 +23,7 @@
 		22651E05202A24C50068C0C9 /* KeychainWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22651E04202A24C50068C0C9 /* KeychainWrapper.swift */; };
 		22651E07202A24FE0068C0C9 /* KeychainItemAccessibility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22651E06202A24FD0068C0C9 /* KeychainItemAccessibility.swift */; };
 		227FB8B12026EA0B00ECF83C /* UserDomain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 227FB8B02026EA0B00ECF83C /* UserDomain.swift */; };
+		22947272203A0457006329F3 /* IQKeyboardManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22947271203A0456006329F3 /* IQKeyboardManager.framework */; };
 		6E2006A81FF415E800ACC982 /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = 6E2006A71FF415E700ACC982 /* Podfile */; };
 		6E9262191FF1553A00AE279F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E9262181FF1553A00AE279F /* AppDelegate.swift */; };
 		6E92621B1FF1553A00AE279F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E92621A1FF1553A00AE279F /* ViewController.swift */; };
@@ -68,6 +69,8 @@
 		22651E04202A24C50068C0C9 /* KeychainWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeychainWrapper.swift; sourceTree = "<group>"; };
 		22651E06202A24FD0068C0C9 /* KeychainItemAccessibility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeychainItemAccessibility.swift; sourceTree = "<group>"; };
 		227FB8B02026EA0B00ECF83C /* UserDomain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDomain.swift; sourceTree = "<group>"; };
+		2294726F203A0437006329F3 /* Carthage */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Carthage; sourceTree = "<group>"; };
+		22947271203A0456006329F3 /* IQKeyboardManager.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IQKeyboardManager.framework; path = Carthage/Build/iOS/IQKeyboardManager.framework; sourceTree = "<group>"; };
 		6E2006A71FF415E700ACC982 /* Podfile */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Podfile; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		6E9262151FF1553A00AE279F /* yaana.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = yaana.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6E9262181FF1553A00AE279F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -90,6 +93,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				22947272203A0457006329F3 /* IQKeyboardManager.framework in Frameworks */,
 				DD293053E8B4C27B8579FD08 /* libPods-yaana.a in Frameworks */,
 				22253A4E202E284A008F740A /* MBProgressHUD.framework in Frameworks */,
 				22253A50202E2C5E008F740A /* EWToastAlerts.framework in Frameworks */,
@@ -154,6 +158,8 @@
 		4F37166E50A26CF656F35397 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				22947271203A0456006329F3 /* IQKeyboardManager.framework */,
+				2294726F203A0437006329F3 /* Carthage */,
 				22253A4F202E2C5E008F740A /* EWToastAlerts.framework */,
 				22253A4D202E284A008F740A /* MBProgressHUD.framework */,
 				22253A4A202E25B8008F740A /* MBProgressHUD.framework.dSYM */,
@@ -378,10 +384,12 @@
 			inputPaths = (
 				"$(SRCROOT)/Carthage/Build/iOS/MBProgressHUD.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/EWToastAlerts.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/IQKeyboardManager.framework",
 			);
 			outputPaths = (
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/MBProgressHUD.framework",
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/EWToastAlerts.framework",
+				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/IQKeyboardManager.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
