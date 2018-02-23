@@ -36,7 +36,10 @@ class LoginController : UIViewController {
             let passwordItem = URLQueryItem(name: "password", value: password)
             urlComponents.queryItems = [userNameItem,passwordItem]
             guard let url = urlComponents.url else {
-
+                DispatchQueue.main.async(execute: {
+                    self.view.makeToast(message: "Internal Server Error", duration: 2.0, position: HRToastPositionDefault as AnyObject)
+                    
+                })
                 return
             }
             
@@ -49,9 +52,12 @@ class LoginController : UIViewController {
             let dataTask = session.dataTask(with: request)
             {
                 ( data: Data?, response: URLResponse?, error: Error?) -> Void in
-                // 1: Check HTTP Response for successful GET request
                 guard let httpResponse = response as? HTTPURLResponse, let receivedData = data
                     else {
+                        DispatchQueue.main.async(execute: {
+                            self.view.makeToast(message: "Internal Server Error", duration: 2.0, position: HRToastPositionDefault as AnyObject)
+                            
+                        })
                         return
                 }
                 
@@ -75,11 +81,18 @@ class LoginController : UIViewController {
                         )
 
                     } catch {
-
+                        DispatchQueue.main.async(execute: {
+                            self.view.makeToast(message: "Internal Server Error", duration: 2.0, position: HRToastPositionDefault as AnyObject)
+                            
+                        })
                         return
                     }
                     
                 default:
+                    DispatchQueue.main.async(execute: {
+                        self.view.makeToast(message: "Internal Server Error", duration: 2.0, position: HRToastPositionDefault as AnyObject)
+                        
+                    })
                     return
                 }
             }

@@ -16,6 +16,7 @@
 		22529C112011E75B00A99F80 /* launch_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 22529C102011E75A00A99F80 /* launch_icon.png */; };
 		22529C142011EC7300A99F80 /* LoginRegister.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 22529C132011EC7300A99F80 /* LoginRegister.storyboard */; };
 		22529C172011F79000A99F80 /* LoginRegisterController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22529C162011F79000A99F80 /* LoginRegisterController.swift */; };
+		225756BB203DF88700958458 /* ErrorDomain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 225756BA203DF88700958458 /* ErrorDomain.swift */; };
 		22630D272010F67400B15E99 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 22630D252010F67400B15E99 /* LaunchScreen.storyboard */; };
 		2264DFD02030BA760026FE5C /* RegisterController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2264DFCF2030BA760026FE5C /* RegisterController.swift */; };
 		22651E00202A0B760068C0C9 /* UserLoginDomain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22651DFF202A0B760068C0C9 /* UserLoginDomain.swift */; };
@@ -62,6 +63,7 @@
 		22529C102011E75A00A99F80 /* launch_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = launch_icon.png; path = ../../Images/launch_icon.png; sourceTree = "<group>"; };
 		22529C132011EC7300A99F80 /* LoginRegister.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LoginRegister.storyboard; sourceTree = "<group>"; };
 		22529C162011F79000A99F80 /* LoginRegisterController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginRegisterController.swift; sourceTree = "<group>"; };
+		225756BA203DF88700958458 /* ErrorDomain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorDomain.swift; sourceTree = "<group>"; };
 		22630D262010F67400B15E99 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		2264DFCF2030BA760026FE5C /* RegisterController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterController.swift; sourceTree = "<group>"; };
 		22651DFF202A0B760068C0C9 /* UserLoginDomain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserLoginDomain.swift; sourceTree = "<group>"; };
@@ -151,6 +153,7 @@
 			children = (
 				227FB8B02026EA0B00ECF83C /* UserDomain.swift */,
 				22651DFF202A0B760068C0C9 /* UserLoginDomain.swift */,
+				225756BA203DF88700958458 /* ErrorDomain.swift */,
 			);
 			path = Domain;
 			sourceTree = "<group>";
@@ -456,6 +459,7 @@
 			files = (
 				22651E00202A0B760068C0C9 /* UserLoginDomain.swift in Sources */,
 				22651E03202A1A2B0068C0C9 /* AppUrl.swift in Sources */,
+				225756BB203DF88700958458 /* ErrorDomain.swift in Sources */,
 				2264DFD02030BA760026FE5C /* RegisterController.swift in Sources */,
 				22529C172011F79000A99F80 /* LoginRegisterController.swift in Sources */,
 				2251D31D20138DE700D08001 /* LoginController.swift in Sources */,

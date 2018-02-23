@@ -67,6 +67,77 @@ class RegisterController : UIViewController {
 
         if(isDobValid && isConfirmPasswordValid && isPasswordValid && isMobileNumberValid && isEmailValid && isDisplayNameValid){
             
+            let configuration = URLSessionConfiguration .default
+            let session = URLSession(configuration: configuration)
+            
+            var urlComponents = URLComponents()
+            urlComponents.scheme = AppUrl.scheme
+            urlComponents.host = AppUrl.host
+            urlComponents.port = AppUrl.port
+            urlComponents.path = "/token/yaana/register/otp"
+            let mobileNumberItem = URLQueryItem(name: "mobileNumber", value: mobileNumberValue)
+            urlComponents.queryItems = [mobileNumberItem]
+            guard let url = urlComponents.url else {
+                DispatchQueue.main.async(execute: {
+                    self.view.makeToast(message: "Internal Server Error", duration: 2.0, position: HRToastPositionDefault as AnyObject)
+                    
+                })
+                return
+            }
+            
+            var request = URLRequest(url: url)
+            request.httpMethod = "PUT"
+            request.timeoutInterval = 30
+            request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+            request.addValue("application/json", forHTTPHeaderField: "Accept")
+            
+            let dataTask = session.dataTask(with: request)
+            {
+                ( data: Data?, response: URLResponse?, error: Error?) -> Void in
+                guard let httpResponse = response as? HTTPURLResponse, let receivedData = data
+                    else {
+                        DispatchQueue.main.async(execute: {
+                            self.view.makeToast(message: "Internal Server Error", duration: 2.0, position: HRToastPositionDefault as AnyObject)
+                            
+                        })
+                        return
+                }
+                
+                switch (httpResponse.statusCode)
+                {
+                case 200:
+                    
+                    do {
+                        let userLoginDomain = try JSONDecoder().decode(UserLoginDomain.self, from: receivedData)
+                        
+                        KeychainWrapper.standard.set(userLoginDomain.token, forKey:"yaana_token")
+                        KeychainWrapper.standard.set(userLoginDomain.userDomain.userId, forKey:"yaana_user_id")
+                        KeychainWrapper.standard.set(userLoginDomain.userDomain.displayName, forKey:"yaana_name")
+                        KeychainWrapper.standard.set(userLoginDomain.userDomain.email, forKey:"yaana_email")
+                        KeychainWrapper.standard.set(userLoginDomain.userDomain.mobileNo, forKey:"yaana_mobile_no")
+                        
+                        DispatchQueue.main.async(execute: {
+                            self.view.makeToast(message: "Login Successful", duration: 2.0, position: HRToastPositionDefault as AnyObject)
+                            
+                        })
+                        
+                    } catch {
+                        DispatchQueue.main.async(execute: {
+                            self.view.makeToast(message: "Internal Server Error", duration: 2.0, position: HRToastPositionDefault as AnyObject)
+                            
+                        })
+                        return
+                    }
+                    
+                default:
+                    DispatchQueue.main.async(execute: {
+                        self.view.makeToast(message: "Internal Server Error", duration: 2.0, position: HRToastPositionDefault as AnyObject)
+                        
+                    })
+                    return
+                }
+            }
+            dataTask.resume()
         }
     }
     
