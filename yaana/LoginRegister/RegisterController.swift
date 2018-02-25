@@ -1,6 +1,6 @@
 import UIKit
 
-class RegisterController : UIViewController {
+class RegisterController : UIViewController, UITextFieldDelegate {
     
     @IBOutlet weak var displayName: UITextField!
     @IBOutlet weak var email: UITextField!
@@ -23,6 +23,11 @@ class RegisterController : UIViewController {
     var confirmPasswordValue : String = ""
     var dateOfBirthValue : String = ""
     
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true;
+    }
+    
     @IBAction func dateOfBirthTapped(_ sender: UITextField) {
         let datePickerView  : UIDatePicker = UIDatePicker()
         datePickerView.datePickerMode = UIDatePickerMode.date
@@ -41,7 +46,11 @@ class RegisterController : UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        displayName.delegate = self
+        email.delegate = self
+        mobileNumber.delegate = self
+        password.delegate = self
+        confirmPassword.delegate = self
         displayName.becomeFirstResponder()
     }
     
@@ -97,7 +106,7 @@ class RegisterController : UIViewController {
                 guard let httpResponse = response as? HTTPURLResponse, let receivedData = data
                     else {
                         DispatchQueue.main.async(execute: {
-                            self.view.makeToast(message: "Internal Server Error", duration: 2.0, position: HRToastPositionDefault as AnyObject)
+                            self.view.makeToast(message: "Unable to connect to server", duration: 2.0, position: HRToastPositionDefault as AnyObject)
                             
                         })
                         return
@@ -106,34 +115,30 @@ class RegisterController : UIViewController {
                 switch (httpResponse.statusCode)
                 {
                 case 200:
-                    
-                    do {
-                        let userLoginDomain = try JSONDecoder().decode(UserLoginDomain.self, from: receivedData)
-                        
-                        KeychainWrapper.standard.set(userLoginDomain.token, forKey:"yaana_token")
-                        KeychainWrapper.standard.set(userLoginDomain.userDomain.userId, forKey:"yaana_user_id")
-                        KeychainWrapper.standard.set(userLoginDomain.userDomain.displayName, forKey:"yaana_name")
-                        KeychainWrapper.standard.set(userLoginDomain.userDomain.email, forKey:"yaana_email")
-                        KeychainWrapper.standard.set(userLoginDomain.userDomain.mobileNo, forKey:"yaana_mobile_no")
-                        
-                        DispatchQueue.main.async(execute: {
-                            self.view.makeToast(message: "Login Successful", duration: 2.0, position: HRToastPositionDefault as AnyObject)
-                            
-                        })
-                        
-                    } catch {
-                        DispatchQueue.main.async(execute: {
-                            self.view.makeToast(message: "Internal Server Error", duration: 2.0, position: HRToastPositionDefault as AnyObject)
-                            
-                        })
-                        return
-                    }
+
+                    DispatchQueue.main.async(execute: {
+                        self.performSegue(withIdentifier: "RegisterOtpSegue", sender: nil)
+                    })
                     
                 default:
-                    DispatchQueue.main.async(execute: {
-                        self.view.makeToast(message: "Internal Server Error", duration: 2.0, position: HRToastPositionDefault as AnyObject)
-                        
-                    })
+                    do{
+                        let errorDomain = try JSONDecoder().decode(ErrorDomain.self, from: receivedData)
+                        DispatchQueue.main.async(execute: {
+                            switch errorDomain.errorCode{
+                            case 1008:
+                                self.mobileNumberErrorLabel.text = errorDomain.errorMessage
+                                self.mobileNumberErrorLabel.isHidden = false
+                                self.mobileNumber.becomeFirstResponder()
+                            default :
+                                self.view.makeToast(message: "Internal Server Error", duration: 2.0, position: HRToastPositionDefault as AnyObject)
+                            }
+                        })
+                    }
+                    catch{
+                        DispatchQueue.main.async(execute: {
+                            self.view.makeToast(message: "Internal Server Error", duration: 2.0, position: HRToastPositionDefault as AnyObject)
+                        })
+                    }
                     return
                 }
             }
@@ -330,5 +335,14 @@ class RegisterController : UIViewController {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "dd-MM-yyyy"
         dateOfBirth.text = dateFormatter.string(from: sender.date)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard let registerOtp = segue.destination as? RegisterOtpController else {return}
+        registerOtp.displayName = displayNameValue
+        registerOtp.email = emailValue
+        registerOtp.mobileNumber = mobileNumberValue
+        registerOtp.password = passwordValue
+        registerOtp.dob = dateOfBirthValue
     }
 }

@@ -12,6 +12,8 @@
 		22253A4E202E284A008F740A /* MBProgressHUD.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22253A4D202E284A008F740A /* MBProgressHUD.framework */; };
 		22253A50202E2C5E008F740A /* EWToastAlerts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22253A4F202E2C5E008F740A /* EWToastAlerts.framework */; };
 		22253A52202E3C17008F740A /* UIToast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22253A51202E3C17008F740A /* UIToast.swift */; };
+		223173ED204182320065C49E /* RegisterOtpController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 223173EC204182320065C49E /* RegisterOtpController.swift */; };
+		223173EF204201E00065C49E /* HttpRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 223173EE204201E00065C49E /* HttpRequest.swift */; };
 		2251D31D20138DE700D08001 /* LoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2251D31C20138DE600D08001 /* LoginController.swift */; };
 		22529C112011E75B00A99F80 /* launch_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 22529C102011E75A00A99F80 /* launch_icon.png */; };
 		22529C142011EC7300A99F80 /* LoginRegister.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 22529C132011EC7300A99F80 /* LoginRegister.storyboard */; };
@@ -23,6 +25,8 @@
 		22651E03202A1A2B0068C0C9 /* AppUrl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22651E02202A1A2B0068C0C9 /* AppUrl.swift */; };
 		22651E05202A24C50068C0C9 /* KeychainWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22651E04202A24C50068C0C9 /* KeychainWrapper.swift */; };
 		22651E07202A24FE0068C0C9 /* KeychainItemAccessibility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22651E06202A24FD0068C0C9 /* KeychainItemAccessibility.swift */; };
+		22673DF020413E5300377111 /* MainMap.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 22673DEF20413E5300377111 /* MainMap.storyboard */; };
+		22673DF220413EF300377111 /* MainMapController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22673DF120413EF300377111 /* MainMapController.swift */; };
 		227FB8B12026EA0B00ECF83C /* UserDomain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 227FB8B02026EA0B00ECF83C /* UserDomain.swift */; };
 		22947272203A0457006329F3 /* IQKeyboardManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22947271203A0456006329F3 /* IQKeyboardManager.framework */; };
 		6E2006A81FF415E800ACC982 /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = 6E2006A71FF415E700ACC982 /* Podfile */; };
@@ -59,6 +63,8 @@
 		22253A4D202E284A008F740A /* MBProgressHUD.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MBProgressHUD.framework; path = Carthage/Build/iOS/MBProgressHUD.framework; sourceTree = "<group>"; };
 		22253A4F202E2C5E008F740A /* EWToastAlerts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EWToastAlerts.framework; path = Carthage/Build/iOS/EWToastAlerts.framework; sourceTree = "<group>"; };
 		22253A51202E3C17008F740A /* UIToast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIToast.swift; sourceTree = "<group>"; };
+		223173EC204182320065C49E /* RegisterOtpController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterOtpController.swift; sourceTree = "<group>"; };
+		223173EE204201E00065C49E /* HttpRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HttpRequest.swift; sourceTree = "<group>"; };
 		2251D31C20138DE600D08001 /* LoginController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginController.swift; sourceTree = "<group>"; };
 		22529C102011E75A00A99F80 /* launch_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = launch_icon.png; path = ../../Images/launch_icon.png; sourceTree = "<group>"; };
 		22529C132011EC7300A99F80 /* LoginRegister.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LoginRegister.storyboard; sourceTree = "<group>"; };
@@ -70,6 +76,8 @@
 		22651E02202A1A2B0068C0C9 /* AppUrl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppUrl.swift; sourceTree = "<group>"; };
 		22651E04202A24C50068C0C9 /* KeychainWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeychainWrapper.swift; sourceTree = "<group>"; };
 		22651E06202A24FD0068C0C9 /* KeychainItemAccessibility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeychainItemAccessibility.swift; sourceTree = "<group>"; };
+		22673DEF20413E5300377111 /* MainMap.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = MainMap.storyboard; sourceTree = "<group>"; };
+		22673DF120413EF300377111 /* MainMapController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMapController.swift; sourceTree = "<group>"; };
 		227FB8B02026EA0B00ECF83C /* UserDomain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDomain.swift; sourceTree = "<group>"; };
 		2294726F203A0437006329F3 /* Carthage */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Carthage; sourceTree = "<group>"; };
 		22947271203A0456006329F3 /* IQKeyboardManager.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IQKeyboardManager.framework; path = Carthage/Build/iOS/IQKeyboardManager.framework; sourceTree = "<group>"; };
@@ -126,6 +134,7 @@
 				22529C132011EC7300A99F80 /* LoginRegister.storyboard */,
 				2251D31C20138DE600D08001 /* LoginController.swift */,
 				2264DFCF2030BA760026FE5C /* RegisterController.swift */,
+				223173EC204182320065C49E /* RegisterOtpController.swift */,
 			);
 			path = LoginRegister;
 			sourceTree = "<group>";
@@ -144,8 +153,18 @@
 			children = (
 				22651E02202A1A2B0068C0C9 /* AppUrl.swift */,
 				22253A51202E3C17008F740A /* UIToast.swift */,
+				223173EE204201E00065C49E /* HttpRequest.swift */,
 			);
 			path = Constants;
+			sourceTree = "<group>";
+		};
+		22673DEC20413DC100377111 /* MainMap */ = {
+			isa = PBXGroup;
+			children = (
+				22673DEF20413E5300377111 /* MainMap.storyboard */,
+				22673DF120413EF300377111 /* MainMapController.swift */,
+			);
+			path = MainMap;
 			sourceTree = "<group>";
 		};
 		227FB8AF2026E9AE00ECF83C /* Domain */ = {
@@ -198,6 +217,7 @@
 		6E9262171FF1553A00AE279F /* yaana */ = {
 			isa = PBXGroup;
 			children = (
+				22673DEC20413DC100377111 /* MainMap */,
 				22651E01202A19AF0068C0C9 /* Constants */,
 				227FB8AF2026E9AE00ECF83C /* Domain */,
 				22529C182011FBE600A99F80 /* Main */,
@@ -356,6 +376,7 @@
 				6E92621E1FF1553A00AE279F /* Main.storyboard in Resources */,
 				22529C142011EC7300A99F80 /* LoginRegister.storyboard in Resources */,
 				22067579200BFB2300236C2D /* Assets.xcassets in Resources */,
+				22673DF020413E5300377111 /* MainMap.storyboard in Resources */,
 				22529C112011E75B00A99F80 /* launch_icon.png in Resources */,
 				22630D272010F67400B15E99 /* LaunchScreen.storyboard in Resources */,
 				6E2006A81FF415E800ACC982 /* Podfile in Resources */,
@@ -458,14 +479,17 @@
 			buildActionMask = 2147483647;
 			files = (
 				22651E00202A0B760068C0C9 /* UserLoginDomain.swift in Sources */,
+				22673DF220413EF300377111 /* MainMapController.swift in Sources */,
 				22651E03202A1A2B0068C0C9 /* AppUrl.swift in Sources */,
 				225756BB203DF88700958458 /* ErrorDomain.swift in Sources */,
 				2264DFD02030BA760026FE5C /* RegisterController.swift in Sources */,
 				22529C172011F79000A99F80 /* LoginRegisterController.swift in Sources */,
+				223173ED204182320065C49E /* RegisterOtpController.swift in Sources */,
 				2251D31D20138DE700D08001 /* LoginController.swift in Sources */,
 				6E92621B1FF1553A00AE279F /* ViewController.swift in Sources */,
 				22253A52202E3C17008F740A /* UIToast.swift in Sources */,
 				22651E07202A24FE0068C0C9 /* KeychainItemAccessibility.swift in Sources */,
+				223173EF204201E00065C49E /* HttpRequest.swift in Sources */,
 				22651E05202A24C50068C0C9 /* KeychainWrapper.swift in Sources */,
 				6E9262191FF1553A00AE279F /* AppDelegate.swift in Sources */,
 				227FB8B12026EA0B00ECF83C /* UserDomain.swift in Sources */,

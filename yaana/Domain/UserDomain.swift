@@ -5,21 +5,21 @@ struct UserDomain : Codable {
     
     let userId: Int64
     
-    let displayName: String
+    var displayName: String
     
-    let email: String
+    var email: String
     
     let lastName: String?
     
-    let password: String?
+    var password: String?
     
     let userCreatedOn: String
     
     let aadhaarNo: String?
     
-    let mobileNo: String
+    var mobileNo: String
     
-    let dateOfBirth: String
+    var dateOfBirth: String
     
     let locked: Bool
     

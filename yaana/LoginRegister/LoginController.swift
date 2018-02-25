@@ -1,7 +1,7 @@
 	
 import UIKit
 
-class LoginController : UIViewController {
+class LoginController : UIViewController,UITextFieldDelegate {
     
     @IBOutlet weak var userNameErrorLabel: UILabel!
     
@@ -13,10 +13,20 @@ class LoginController : UIViewController {
     
     var mobileNumber : String = ""
     var password : String = ""
-    		
-    //@IBOutlet weak var loginButtonText: UIButton!
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true;
+    }
     
     @IBAction func buttonClick(_ sender: Any) {
+        
+        if(mobileNumberField.isFirstResponder){
+            mobileNumberField.resignFirstResponder()
+        }else{
+            passwordField.resignFirstResponder()
+        }
+        
         mobileNumber = mobileNumberField.text!.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
         password = passwordField.text!.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
         
@@ -55,7 +65,7 @@ class LoginController : UIViewController {
                 guard let httpResponse = response as? HTTPURLResponse, let receivedData = data
                     else {
                         DispatchQueue.main.async(execute: {
-                            self.view.makeToast(message: "Internal Server Error", duration: 2.0, position: HRToastPositionDefault as AnyObject)
+                            self.view.makeToast(message: "Unable to connect to server", duration: 2.0, position: HRToastPositionDefault as AnyObject)
                             
                         })
                         return
@@ -75,12 +85,17 @@ class LoginController : UIViewController {
                         KeychainWrapper.standard.set(userLoginDomain.userDomain.mobileNo, forKey:"yaana_mobile_no")
 
                         DispatchQueue.main.async(execute: {
-                            self.view.makeToast(message: "Login Successful", duration: 2.0, position: HRToastPositionDefault as AnyObject)
+                            
+                                let storyboard = UIStoryboard(name: "MainMap", bundle: nil)
+                                let controller = storyboard.instantiateViewController(withIdentifier: "MainMapController") as UIViewController
+                                let appDelegate = (UIApplication.shared.delegate as! AppDelegate)
+                                appDelegate.window?.rootViewController = controller
                             
                             }
                         )
 
                     } catch {
+                        
                         DispatchQueue.main.async(execute: {
                             self.view.makeToast(message: "Internal Server Error", duration: 2.0, position: HRToastPositionDefault as AnyObject)
                             
@@ -89,10 +104,26 @@ class LoginController : UIViewController {
                     }
                     
                 default:
-                    DispatchQueue.main.async(execute: {
-                        self.view.makeToast(message: "Internal Server Error", duration: 2.0, position: HRToastPositionDefault as AnyObject)
-                        
-                    })
+                    do{
+                    let errorDomain = try JSONDecoder().decode(ErrorDomain.self, from: receivedData)
+                        DispatchQueue.main.async(execute: {
+                            switch errorDomain.errorCode{
+                            case 1001 :
+                                self.view.makeToast(message: errorDomain.errorMessage, duration: 3.0, position: HRToastPositionDefault as AnyObject)
+                            case 1002:
+                                self.passwordErrorLabel.text = errorDomain.errorMessage
+                                self.passwordErrorLabel.isHidden = false
+                                self.passwordField.becomeFirstResponder()
+                            default :
+                                self.view.makeToast(message: "Internal Server Error", duration: 2.0, position: HRToastPositionDefault as AnyObject)
+                            }
+                        })
+                    }
+                    catch{
+                        DispatchQueue.main.async(execute: {
+                            self.view.makeToast(message: "Internal Server Error", duration: 2.0, position: HRToastPositionDefault as AnyObject)
+                        })
+                    }
                     return
                 }
             }
@@ -102,7 +133,8 @@ class LoginController : UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        mobileNumberField.delegate = self
+        passwordField.delegate = self
         mobileNumberField.becomeFirstResponder()
         
     }
