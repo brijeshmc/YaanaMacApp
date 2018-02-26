@@ -199,6 +199,46 @@
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="zZp-Na-9hj">
+                                                <rect key="frame" x="62" y="326" width="40" height="40"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="40" id="npe-r1-n1g"/>
+                                                    <constraint firstAttribute="width" constant="40" id="vvh-hH-Kdr"/>
+                                                </constraints>
+                                                <nil key="textColor"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                                <textInputTraits key="textInputTraits" keyboardType="numberPad" textContentType="tel"/>
+                                                <connections>
+                                                    <action selector="otpField1:" destination="1Kz-Yg-phb" eventType="editingChanged" id="Wn5-FM-K1f"/>
+                                                    <action selector="otpField1TouchUp:" destination="1Kz-Yg-phb" eventType="touchUpInside" id="YvD-Mf-W69"/>
+                                                </connections>
+                                            </textField>
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="BVN-yg-y9G">
+                                                <rect key="frame" x="112" y="326" width="40" height="40"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="40" id="rVs-kO-0et"/>
+                                                    <constraint firstAttribute="width" constant="40" id="v2K-2b-TrV"/>
+                                                </constraints>
+                                                <nil key="textColor"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                                <textInputTraits key="textInputTraits" keyboardType="numberPad" textContentType="tel"/>
+                                                <connections>
+                                                    <action selector="otpField2:" destination="1Kz-Yg-phb" eventType="editingChanged" id="eds-ln-uGQ"/>
+                                                </connections>
+                                            </textField>
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dEY-bd-3ep">
+                                                <rect key="frame" x="162" y="326" width="40" height="40"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="40" id="18J-hH-6Vu"/>
+                                                    <constraint firstAttribute="width" constant="40" id="JhU-v4-6iU"/>
+                                                </constraints>
+                                                <nil key="textColor"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                                <textInputTraits key="textInputTraits" keyboardType="numberPad" textContentType="tel"/>
+                                                <connections>
+                                                    <action selector="otpField3:" destination="1Kz-Yg-phb" eventType="editingChanged" id="jFj-Qm-8FM"/>
+                                                </connections>
+                                            </textField>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="d38-B1-dLF">
                                                 <rect key="frame" x="212.33333333333334" y="326" width="40" height="40"/>
                                                 <constraints>
@@ -209,7 +249,7 @@
                                                 <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                                 <textInputTraits key="textInputTraits" keyboardType="numberPad" textContentType="tel"/>
                                                 <connections>
-                                                    <action selector="otpField4:" destination="1Kz-Yg-phb" eventType="editingDidEnd" id="cpb-c3-16E"/>
+                                                    <action selector="otpField4:" destination="1Kz-Yg-phb" eventType="editingChanged" id="PkB-sR-WhC"/>
                                                 </connections>
                                             </textField>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="5lO-Rc-Jpm">
@@ -222,33 +262,7 @@
                                                 <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                                 <textInputTraits key="textInputTraits" keyboardType="numberPad" textContentType="tel"/>
                                                 <connections>
-                                                    <action selector="otpField5:" destination="1Kz-Yg-phb" eventType="editingDidEnd" id="vMi-k2-9Nd"/>
-                                                </connections>
-                                            </textField>
-                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="BVN-yg-y9G">
-                                                <rect key="frame" x="112.33333333333331" y="326" width="40" height="40"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="40" id="rVs-kO-0et"/>
-                                                    <constraint firstAttribute="width" constant="40" id="v2K-2b-TrV"/>
-                                                </constraints>
-                                                <nil key="textColor"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
-                                                <textInputTraits key="textInputTraits" keyboardType="numberPad" textContentType="tel"/>
-                                                <connections>
-                                                    <action selector="otpField2:" destination="1Kz-Yg-phb" eventType="editingDidEnd" id="zVz-tZ-9ce"/>
-                                                </connections>
-                                            </textField>
-                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dEY-bd-3ep">
-                                                <rect key="frame" x="162.33333333333334" y="326" width="40" height="40"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="40" id="18J-hH-6Vu"/>
-                                                    <constraint firstAttribute="width" constant="40" id="JhU-v4-6iU"/>
-                                                </constraints>
-                                                <nil key="textColor"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
-                                                <textInputTraits key="textInputTraits" keyboardType="numberPad" textContentType="tel"/>
-                                                <connections>
-                                                    <action selector="otpField3:" destination="1Kz-Yg-phb" eventType="editingDidEnd" id="txc-bH-s8X"/>
+                                                    <action selector="otpField5:" destination="1Kz-Yg-phb" eventType="editingChanged" id="0h7-0A-wma"/>
                                                 </connections>
                                             </textField>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="rUH-Vo-3eq">
@@ -261,20 +275,7 @@
                                                 <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                                 <textInputTraits key="textInputTraits" keyboardType="numberPad" textContentType="tel"/>
                                                 <connections>
-                                                    <action selector="otpField6:" destination="1Kz-Yg-phb" eventType="editingDidEnd" id="AEX-R5-4DH"/>
-                                                </connections>
-                                            </textField>
-                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="zZp-Na-9hj">
-                                                <rect key="frame" x="62.333333333333343" y="326" width="40" height="40"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="40" id="npe-r1-n1g"/>
-                                                    <constraint firstAttribute="width" constant="40" id="vvh-hH-Kdr"/>
-                                                </constraints>
-                                                <nil key="textColor"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
-                                                <textInputTraits key="textInputTraits" keyboardType="numberPad" textContentType="tel"/>
-                                                <connections>
-                                                    <action selector="otpField1:" destination="1Kz-Yg-phb" eventType="editingDidEnd" id="BQb-Fv-Ric"/>
+                                                    <action selector="otpField6:" destination="1Kz-Yg-phb" eventType="editingChanged" id="rZ3-pR-sxD"/>
                                                 </connections>
                                             </textField>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eFr-j9-etm">
@@ -317,6 +318,7 @@
                                             <constraint firstItem="gnS-Ho-dwg" firstAttribute="top" secondItem="pvO-a5-BAG" secondAttribute="bottom" constant="20" id="3Ds-Qd-DOF"/>
                                             <constraint firstItem="5lO-Rc-Jpm" firstAttribute="top" secondItem="mRV-WQ-Bq8" secondAttribute="bottom" constant="20" id="43q-eC-hne"/>
                                             <constraint firstItem="pvO-a5-BAG" firstAttribute="centerX" secondItem="0bh-tF-oGb" secondAttribute="centerX" id="5i7-5G-jg9"/>
+                                            <constraint firstAttribute="trailing" secondItem="5lO-Rc-Jpm" secondAttribute="trailing" constant="111.66666666666669" id="B7K-yP-S26"/>
                                             <constraint firstItem="0rI-Tl-quu" firstAttribute="centerX" secondItem="0bh-tF-oGb" secondAttribute="centerX" constant="-50" id="BWa-Ok-zZ3"/>
                                             <constraint firstItem="zZp-Na-9hj" firstAttribute="top" secondItem="mRV-WQ-Bq8" secondAttribute="bottom" constant="20" id="GxC-H1-jeU"/>
                                             <constraint firstItem="mRV-WQ-Bq8" firstAttribute="top" secondItem="gnS-Ho-dwg" secondAttribute="bottom" constant="10" id="Ipz-rn-vbW"/>
@@ -369,6 +371,7 @@
                         <outlet property="otpTextField4" destination="d38-B1-dLF" id="BKz-0X-lLg"/>
                         <outlet property="otpTextField5" destination="5lO-Rc-Jpm" id="x1B-bs-khD"/>
                         <outlet property="otpTextField6" destination="rUH-Vo-3eq" id="Zkq-C3-8Rx"/>
+                        <segue destination="3xu-N6-Ya9" kind="show" identifier="LoginSegue" id="2h1-45-m2o"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="AZU-tm-QkK" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -572,4 +575,7 @@
         <image name="launch_icon.png" width="250" height="185"/>
         <image name="yaana_background" width="638" height="185"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="2h1-45-m2o"/>
+    </inferredMetricsTieBreakers>
 </document>

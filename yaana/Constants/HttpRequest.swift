@@ -15,9 +15,10 @@ extension UIView {
         if(queries != nil && queries!.count > 0){
             var queryItems : [URLQueryItem] = []
 
-            for var i in 0...queries!.count{
+            var i = 0
+            while i < queries!.count {
                 queryItems.append(URLQueryItem(name: queries![i] as! String, value: queries![i+1] as? String))
-                i += 2;
+                i += 2
             }
             urlComponents.queryItems = queryItems
         }

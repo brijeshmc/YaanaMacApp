@@ -16,20 +16,45 @@ class RegisterOtpController : UIViewController, UITextFieldDelegate {
     @IBOutlet weak var otpTextField5: UITextField!
     @IBOutlet weak var otpTextField6: UITextField!
     
-    
     @IBOutlet weak var mobileNumberLabel: UILabel!
+    
     @IBAction func otpField1(_ sender: UITextField) {
+        let str = sender.text!
+        if str.count == 1 {
+            otpTextField2.becomeFirstResponder()
+        }
     }
     @IBAction func otpField2(_ sender: UITextField) {
+        let str = sender.text!
+        if str.count == 1 {
+            otpTextField3.becomeFirstResponder()
+        }
     }
     @IBAction func otpField3(_ sender: UITextField) {
+        let str = sender.text!
+        if str.count == 1 {
+            otpTextField4.becomeFirstResponder()
+        }
     }
     @IBAction func otpField4(_ sender: UITextField) {
+        let str = sender.text!
+        if str.count == 1 {
+            otpTextField5.becomeFirstResponder()
+        }
     }
     @IBAction func otpField5(_ sender: UITextField) {
+        let str = sender.text!
+        if str.count == 1 {
+            otpTextField6.becomeFirstResponder()
+        }
     }
     @IBAction func otpField6(_ sender: UITextField) {
+        let str = sender.text!
+        if str.count == 1 {
+            otpTextField6.resignFirstResponder()
+        }
     }
+    
     @IBAction func submitButtonClick(_ sender: Any) {
         if(otpTextField1.text?.count == 1 && otpTextField2.text?.count == 1 && otpTextField3.text?.count == 1 && otpTextField4.text?.count == 1 && otpTextField5.text?.count == 1 && otpTextField6.text?.count == 1){
             
@@ -44,7 +69,7 @@ class RegisterOtpController : UIViewController, UITextFieldDelegate {
             let dataTask = urlSession.dataTask(with: urlRequest)
             {
                 ( data: Data?, response: URLResponse?, error: Error?) -> Void in
-                guard let httpResponse = response as? HTTPURLResponse, let _ = data
+                guard let httpResponse = response as? HTTPURLResponse, let receivedData = data
                     else {
                         DispatchQueue.main.async(execute: {
                             self.view.makeToast(message: "Unable to connect to server", duration: 2.0, position: HRToastPositionDefault as AnyObject)
@@ -55,17 +80,31 @@ class RegisterOtpController : UIViewController, UITextFieldDelegate {
                 
                 switch (httpResponse.statusCode)
                 {
-                case 200:
+                case 201:
                     
                     DispatchQueue.main.async(execute: {
-                        self.view.makeToast(message: "OTP sent successfully", duration: 2.0, position: HRToastPositionDefault as AnyObject)
+                        self.view.makeToast(message: "Account has been created successfully", duration: 2.0, position: HRToastPositionDefault as AnyObject)
                         
+                            self.performSegue(withIdentifier: "LoginSegue", sender: nil)
                     })
                     
                 default:
-                    DispatchQueue.main.async(execute: {
-                        self.view.makeToast(message: "Internal Server Error", duration: 2.0, position: HRToastPositionDefault as AnyObject)
-                    })
+                    do{
+                        let errorDomain = try JSONDecoder().decode(ErrorDomain.self, from: receivedData)
+                        DispatchQueue.main.async(execute: {
+                            if(errorDomain.errorCode != 0){
+                                self.view.makeToast(message: errorDomain.errorMessage, duration: 2.0, position: HRToastPositionDefault as AnyObject)
+                            }
+                            else{
+                                self.view.makeToast(message: "Internal Server Error", duration: 2.0, position: HRToastPositionDefault as AnyObject)
+                            }
+                        })
+                    }
+                    catch{
+                        DispatchQueue.main.async(execute: {
+                            self.view.makeToast(message: "Internal Server Error", duration: 2.0, position: HRToastPositionDefault as AnyObject)
+                        })
+                    }
                 }
             }
             dataTask.resume()
@@ -111,6 +150,15 @@ class RegisterOtpController : UIViewController, UITextFieldDelegate {
         super.viewDidLoad()
         
         mobileNumberLabel.text = "sent to \(mobileNumber!)"
+        
+        otpTextField1.delegate = self
+        otpTextField2.delegate = self
+        otpTextField3.delegate = self
+        otpTextField4.delegate = self
+        otpTextField5.delegate = self
+        otpTextField6.delegate = self
+        
+        otpTextField1.becomeFirstResponder()
     }
     
     override func didReceiveMemoryWarning() {
@@ -118,12 +166,15 @@ class RegisterOtpController : UIViewController, UITextFieldDelegate {
         // Dispose of any resources that can be recreated.
     }
     
-    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
-        let str = (textView.text + text)
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        let str = (textField.text! + string)
+
         if str.count <= 1 {
             return true
         }
-        textView.text = String(str.prefix(1))
+        textField.text = String(str.prefix(1))
         return false
     }
+    
+
 }
