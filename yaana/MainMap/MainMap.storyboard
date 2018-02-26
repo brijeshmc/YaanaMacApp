@@ -20,6 +20,9 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <viewLayoutGuide key="safeArea" id="zLb-3E-oqM"/>
                     </view>
+                    <connections>
+                        <outlet property="googleMapsContainerView" destination="oWS-oR-072" id="wYR-rI-OPH"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="plr-Dd-Se9" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
