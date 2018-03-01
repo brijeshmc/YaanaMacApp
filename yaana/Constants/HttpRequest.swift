@@ -9,7 +9,7 @@ extension UIView {
         var urlComponents = URLComponents()
         urlComponents.scheme = AppUrl.scheme
         urlComponents.host = AppUrl.host
-        urlComponents.port = AppUrl.port
+        //urlComponents.port = AppUrl.port
         urlComponents.path = path
         
         if(queries != nil && queries!.count > 0){
@@ -24,13 +24,22 @@ extension UIView {
         }
         let url = urlComponents.url
         
+        var token = KeychainWrapper.standard.string(forKey: "yaana_token")
+
 
         var request = URLRequest(url: url!)
         request.httpMethod = method
         request.timeoutInterval = 30
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         request.addValue("application/json", forHTTPHeaderField: "Accept")
+        if(token != nil && token != ""){
+            token = "yaanaAuthToken \(token!)"
+            request.addValue(token!, forHTTPHeaderField: "RequestAuthorization")
+        }
+        
+
         request.httpBody = body
         return (session, request)
     }
 }
+

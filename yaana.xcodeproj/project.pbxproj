@@ -29,6 +29,7 @@
 		22673DF220413EF300377111 /* MainMapController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22673DF120413EF300377111 /* MainMapController.swift */; };
 		227FB8B12026EA0B00ECF83C /* UserDomain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 227FB8B02026EA0B00ECF83C /* UserDomain.swift */; };
 		22947272203A0457006329F3 /* IQKeyboardManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22947271203A0456006329F3 /* IQKeyboardManager.framework */; };
+		22E6CC4920487CB9008BEE55 /* StartByNumberController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22E6CC4820487CB9008BEE55 /* StartByNumberController.swift */; };
 		6E2006A81FF415E800ACC982 /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = 6E2006A71FF415E700ACC982 /* Podfile */; };
 		6E9262191FF1553A00AE279F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E9262181FF1553A00AE279F /* AppDelegate.swift */; };
 		6E92621B1FF1553A00AE279F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E92621A1FF1553A00AE279F /* ViewController.swift */; };
@@ -81,6 +82,7 @@
 		227FB8B02026EA0B00ECF83C /* UserDomain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDomain.swift; sourceTree = "<group>"; };
 		2294726F203A0437006329F3 /* Carthage */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Carthage; sourceTree = "<group>"; };
 		22947271203A0456006329F3 /* IQKeyboardManager.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IQKeyboardManager.framework; path = Carthage/Build/iOS/IQKeyboardManager.framework; sourceTree = "<group>"; };
+		22E6CC4820487CB9008BEE55 /* StartByNumberController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartByNumberController.swift; sourceTree = "<group>"; };
 		6E2006A71FF415E700ACC982 /* Podfile */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Podfile; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		6E9262151FF1553A00AE279F /* yaana.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = yaana.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6E9262181FF1553A00AE279F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -163,6 +165,7 @@
 			children = (
 				22673DEF20413E5300377111 /* MainMap.storyboard */,
 				22673DF120413EF300377111 /* MainMapController.swift */,
+				22E6CC4820487CB9008BEE55 /* StartByNumberController.swift */,
 			);
 			path = MainMap;
 			sourceTree = "<group>";
@@ -492,6 +495,7 @@
 				223173EF204201E00065C49E /* HttpRequest.swift in Sources */,
 				22651E05202A24C50068C0C9 /* KeychainWrapper.swift in Sources */,
 				6E9262191FF1553A00AE279F /* AppDelegate.swift in Sources */,
+				22E6CC4920487CB9008BEE55 /* StartByNumberController.swift in Sources */,
 				227FB8B12026EA0B00ECF83C /* UserDomain.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

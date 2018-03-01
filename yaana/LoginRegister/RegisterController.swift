@@ -76,31 +76,10 @@ class RegisterController : UIViewController, UITextFieldDelegate {
 
         if(isDobValid && isConfirmPasswordValid && isPasswordValid && isMobileNumberValid && isEmailValid && isDisplayNameValid){
             
-            let configuration = URLSessionConfiguration .default
-            let session = URLSession(configuration: configuration)
+            let queries : Array<Any> = ["mobileNumber", mobileNumberValue]
+            let (urlSession, urlRequest) = self.view.makeHttpRequest(path: "/token/yaana/register/otp",queries: queries,method: "PUT", body: nil)
             
-            var urlComponents = URLComponents()
-            urlComponents.scheme = AppUrl.scheme
-            urlComponents.host = AppUrl.host
-            urlComponents.port = AppUrl.port
-            urlComponents.path = "/token/yaana/register/otp"
-            let mobileNumberItem = URLQueryItem(name: "mobileNumber", value: mobileNumberValue)
-            urlComponents.queryItems = [mobileNumberItem]
-            guard let url = urlComponents.url else {
-                DispatchQueue.main.async(execute: {
-                    self.view.makeToast(message: "Internal Server Error", duration: 2.0, position: HRToastPositionDefault as AnyObject)
-                    
-                })
-                return
-            }
-            
-            var request = URLRequest(url: url)
-            request.httpMethod = "PUT"
-            request.timeoutInterval = 30
-            request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-            request.addValue("application/json", forHTTPHeaderField: "Accept")
-            
-            let dataTask = session.dataTask(with: request)
+            let dataTask = urlSession.dataTask(with: urlRequest)
             {
                 ( data: Data?, response: URLResponse?, error: Error?) -> Void in
                 guard let httpResponse = response as? HTTPURLResponse, let receivedData = data

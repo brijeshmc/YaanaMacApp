@@ -34,32 +34,11 @@ class LoginController : UIViewController,UITextFieldDelegate {
         let isUserNameValid : Bool = validateUserName(userName: mobileNumber)
         
         if (isUserNameValid && isPasswordValid) {
-            let configuration = URLSessionConfiguration .default
-            let session = URLSession(configuration: configuration)
             
-            var urlComponents = URLComponents()
-            urlComponents.scheme = AppUrl.scheme
-            urlComponents.host = AppUrl.host
-            urlComponents.port = AppUrl.port
-            urlComponents.path = "/token/yaana/login"
-            let userNameItem = URLQueryItem(name: "userName", value: mobileNumber)
-            let passwordItem = URLQueryItem(name: "password", value: password)
-            urlComponents.queryItems = [userNameItem,passwordItem]
-            guard let url = urlComponents.url else {
-                DispatchQueue.main.async(execute: {
-                    self.view.makeToast(message: "Internal Server Error", duration: 2.0, position: HRToastPositionDefault as AnyObject)
-                    
-                })
-                return
-            }
+            let queries : Array<Any> = ["userName", mobileNumber, "password", password]
+            let (urlSession, urlRequest) = self.view.makeHttpRequest(path: "/token/yaana/login",queries: queries,method: "POST", body: nil)
             
-            var request = URLRequest(url: url)
-            request.httpMethod = "POST"
-            request.timeoutInterval = 30
-            request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-            request.addValue("application/json", forHTTPHeaderField: "Accept")
-            
-            let dataTask = session.dataTask(with: request)
+            let dataTask = urlSession.dataTask(with: urlRequest)
             {
                 ( data: Data?, response: URLResponse?, error: Error?) -> Void in
                 guard let httpResponse = response as? HTTPURLResponse, let receivedData = data

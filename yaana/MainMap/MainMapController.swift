@@ -24,9 +24,10 @@ class MainMapController: UIViewController,CLLocationManagerDelegate  {
 
     }
     
+    @IBAction func startButtonClicked(_ sender: Any) {
+    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error)
