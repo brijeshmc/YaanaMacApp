@@ -28,6 +28,9 @@
 		22673DF020413E5300377111 /* MainMap.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 22673DEF20413E5300377111 /* MainMap.storyboard */; };
 		22673DF220413EF300377111 /* MainMapController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22673DF120413EF300377111 /* MainMapController.swift */; };
 		227FB8B12026EA0B00ECF83C /* UserDomain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 227FB8B02026EA0B00ECF83C /* UserDomain.swift */; };
+		22895964204B1481006325C4 /* UnlockingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22895963204B1481006325C4 /* UnlockingController.swift */; };
+		22895967204BD854006325C4 /* RideMap.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 22895966204BD854006325C4 /* RideMap.storyboard */; };
+		22895969204BDBBA006325C4 /* RideMapController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22895968204BDBBA006325C4 /* RideMapController.swift */; };
 		22947272203A0457006329F3 /* IQKeyboardManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22947271203A0456006329F3 /* IQKeyboardManager.framework */; };
 		22E6CC4920487CB9008BEE55 /* StartByNumberController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22E6CC4820487CB9008BEE55 /* StartByNumberController.swift */; };
 		6E2006A81FF415E800ACC982 /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = 6E2006A71FF415E700ACC982 /* Podfile */; };
@@ -80,6 +83,9 @@
 		22673DEF20413E5300377111 /* MainMap.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = MainMap.storyboard; sourceTree = "<group>"; };
 		22673DF120413EF300377111 /* MainMapController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMapController.swift; sourceTree = "<group>"; };
 		227FB8B02026EA0B00ECF83C /* UserDomain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDomain.swift; sourceTree = "<group>"; };
+		22895963204B1481006325C4 /* UnlockingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnlockingController.swift; sourceTree = "<group>"; };
+		22895966204BD854006325C4 /* RideMap.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = RideMap.storyboard; sourceTree = "<group>"; };
+		22895968204BDBBA006325C4 /* RideMapController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RideMapController.swift; sourceTree = "<group>"; };
 		2294726F203A0437006329F3 /* Carthage */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Carthage; sourceTree = "<group>"; };
 		22947271203A0456006329F3 /* IQKeyboardManager.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IQKeyboardManager.framework; path = Carthage/Build/iOS/IQKeyboardManager.framework; sourceTree = "<group>"; };
 		22E6CC4820487CB9008BEE55 /* StartByNumberController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartByNumberController.swift; sourceTree = "<group>"; };
@@ -166,6 +172,7 @@
 				22673DEF20413E5300377111 /* MainMap.storyboard */,
 				22673DF120413EF300377111 /* MainMapController.swift */,
 				22E6CC4820487CB9008BEE55 /* StartByNumberController.swift */,
+				22895963204B1481006325C4 /* UnlockingController.swift */,
 			);
 			path = MainMap;
 			sourceTree = "<group>";
@@ -178,6 +185,15 @@
 				225756BA203DF88700958458 /* ErrorDomain.swift */,
 			);
 			path = Domain;
+			sourceTree = "<group>";
+		};
+		22895965204BD80D006325C4 /* RideMap */ = {
+			isa = PBXGroup;
+			children = (
+				22895966204BD854006325C4 /* RideMap.storyboard */,
+				22895968204BDBBA006325C4 /* RideMapController.swift */,
+			);
+			path = RideMap;
 			sourceTree = "<group>";
 		};
 		4F37166E50A26CF656F35397 /* Frameworks */ = {
@@ -220,6 +236,7 @@
 		6E9262171FF1553A00AE279F /* yaana */ = {
 			isa = PBXGroup;
 			children = (
+				22895965204BD80D006325C4 /* RideMap */,
 				22673DEC20413DC100377111 /* MainMap */,
 				22651E01202A19AF0068C0C9 /* Constants */,
 				227FB8AF2026E9AE00ECF83C /* Domain */,
@@ -380,6 +397,7 @@
 				22529C142011EC7300A99F80 /* LoginRegister.storyboard in Resources */,
 				22067579200BFB2300236C2D /* Assets.xcassets in Resources */,
 				22673DF020413E5300377111 /* MainMap.storyboard in Resources */,
+				22895967204BD854006325C4 /* RideMap.storyboard in Resources */,
 				22529C112011E75B00A99F80 /* launch_icon.png in Resources */,
 				22630D272010F67400B15E99 /* LaunchScreen.storyboard in Resources */,
 				6E2006A81FF415E800ACC982 /* Podfile in Resources */,
@@ -494,6 +512,8 @@
 				22651E07202A24FE0068C0C9 /* KeychainItemAccessibility.swift in Sources */,
 				223173EF204201E00065C49E /* HttpRequest.swift in Sources */,
 				22651E05202A24C50068C0C9 /* KeychainWrapper.swift in Sources */,
+				22895964204B1481006325C4 /* UnlockingController.swift in Sources */,
+				22895969204BDBBA006325C4 /* RideMapController.swift in Sources */,
 				6E9262191FF1553A00AE279F /* AppDelegate.swift in Sources */,
 				22E6CC4920487CB9008BEE55 /* StartByNumberController.swift in Sources */,
 				227FB8B12026EA0B00ECF83C /* UserDomain.swift in Sources */,

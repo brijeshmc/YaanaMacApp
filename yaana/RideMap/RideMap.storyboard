@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina5_5" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Ride Map Controller-->
+        <scene sceneID="59Q-y8-MyJ">
+            <objects>
+                <viewController storyboardIdentifier="RideMapController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="E6w-6a-HDK" customClass="RideMapController" customModule="yaana" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Bxh-UQ-fCt">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ASw-YP-SKu">
+                                <rect key="frame" x="0.0" y="20" width="414" height="646"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="scan_icon" translatesAutoresizingMaskIntoConstraints="NO" id="Gu4-Ld-uTL">
+                                <rect key="frame" x="192" y="681" width="30" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="B8T-NS-aAU"/>
+                                    <constraint firstAttribute="width" constant="30" id="LFv-CG-aLD"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Continue" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XyR-FD-1Qx">
+                                <rect key="frame" x="179.66666666666666" y="713" width="55" height="14.666666666666629"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="55" id="EFl-25-MHS"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Rsl-ZU-lvD">
+                                <rect key="frame" x="172" y="666" width="70" height="70"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="70" id="XZp-NP-fb3"/>
+                                    <constraint firstAttribute="width" constant="70" id="pXH-4T-f2K"/>
+                                </constraints>
+                                <connections>
+                                    <segue destination="xDq-Wn-m2B" kind="show" id="3Kb-N7-nKc"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="bAV-7f-Ii9" firstAttribute="bottom" secondItem="ASw-YP-SKu" secondAttribute="bottom" constant="70" id="7Xa-AI-h0D"/>
+                            <constraint firstItem="bAV-7f-Ii9" firstAttribute="bottom" secondItem="Rsl-ZU-lvD" secondAttribute="bottom" id="FuA-op-cWp"/>
+                            <constraint firstItem="Gu4-Ld-uTL" firstAttribute="bottom" secondItem="bAV-7f-Ii9" secondAttribute="bottom" constant="-25" id="Gwu-ao-EYW"/>
+                            <constraint firstItem="XyR-FD-1Qx" firstAttribute="centerX" secondItem="Bxh-UQ-fCt" secondAttribute="centerX" id="N2V-sD-KbK"/>
+                            <constraint firstItem="Rsl-ZU-lvD" firstAttribute="top" secondItem="ASw-YP-SKu" secondAttribute="bottom" id="VRM-c0-v1P"/>
+                            <constraint firstItem="ASw-YP-SKu" firstAttribute="leading" secondItem="bAV-7f-Ii9" secondAttribute="leading" id="Yw5-V6-yxG"/>
+                            <constraint firstItem="Gu4-Ld-uTL" firstAttribute="centerX" secondItem="Bxh-UQ-fCt" secondAttribute="centerX" id="cE7-Wa-Awt"/>
+                            <constraint firstItem="XyR-FD-1Qx" firstAttribute="top" secondItem="Gu4-Ld-uTL" secondAttribute="bottom" constant="2" id="l2G-u6-pOS"/>
+                            <constraint firstItem="Rsl-ZU-lvD" firstAttribute="centerX" secondItem="Bxh-UQ-fCt" secondAttribute="centerX" id="ljh-gQ-QFk"/>
+                            <constraint firstItem="ASw-YP-SKu" firstAttribute="top" secondItem="bAV-7f-Ii9" secondAttribute="top" id="mpk-sW-VKK"/>
+                            <constraint firstItem="bAV-7f-Ii9" firstAttribute="trailing" secondItem="ASw-YP-SKu" secondAttribute="trailing" id="rNZ-cz-et8"/>
+                            <constraint firstItem="Gu4-Ld-uTL" firstAttribute="top" secondItem="ASw-YP-SKu" secondAttribute="bottom" constant="15" id="xo7-0F-bHF"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="bAV-7f-Ii9"/>
+                    </view>
+                    <connections>
+                        <outlet property="googleMapsContainerView" destination="ASw-YP-SKu" id="oiL-PS-bII"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="DzM-3O-MTL" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-273" y="-88"/>
+        </scene>
+        <!--Unlocking Controller-->
+        <scene sceneID="S7N-Nv-i9b">
+            <objects>
+                <viewController storyboardIdentifier="UnlockingController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="xDq-Wn-m2B" customClass="UnlockingController" customModule="yaana" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="TaN-nd-yO6">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <viewLayoutGuide key="safeArea" id="SEh-hV-oCZ"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="h6N-PI-UHc" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="439" y="-90"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="scan_icon" width="60" height="60"/>
+    </resources>
+</document>

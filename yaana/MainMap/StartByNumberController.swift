@@ -9,12 +9,14 @@ class StartByNumberController : UIViewController {
     
     @IBOutlet weak var CycleNumberErrorLabel: UILabel!
     @IBOutlet weak var ConfirmCycleNumberErrorLabel: UILabel!
-    
     var CycleNumber = ""
     var ConfirmCycleNumber = ""
     
+    var rideExists : Bool!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        CycleNumberField.becomeFirstResponder()
     }
     
     override func didReceiveMemoryWarning() {
@@ -32,8 +34,16 @@ class StartByNumberController : UIViewController {
             
             let userId = KeychainWrapper.standard.integer(forKey: "yaana_user_id")
             
-            let queries : Array<Any> = ["lockId", CycleNumber, "userId",  String(describing: userId), "promoCode",  ""]
-            let (urlSession, urlRequest) = self.view.makeHttpRequest(path: "/yaana/bicycles/ride",queries: queries,method: "POST", body: nil)
+            let queries : Array<Any> = ["lockId", CycleNumber, "userId",  String(describing: userId!), "promoCode",  ""]
+            
+            var urlSession : URLSession
+            var urlRequest : URLRequest
+            if(rideExists){
+                (urlSession, urlRequest) = self.view.makeHttpRequest(path: "/yaana/bicycles/unlock",queries: queries,method: "PUT", body: nil, accepts: "application/json")
+            }
+            else{
+                (urlSession, urlRequest) = self.view.makeHttpRequest(path: "/yaana/bicycles/ride",queries: queries,method: "POST", body: nil, accepts: "application/json")
+            }
             
             let dataTask = urlSession.dataTask(with: urlRequest)
             {
@@ -52,9 +62,7 @@ class StartByNumberController : UIViewController {
                 case 200:
                     
                     DispatchQueue.main.async(execute: {
-                        self.view.makeToast(message: "Unlock request sent successfully", duration: 2.0, position: HRToastPositionDefault as AnyObject)
-                        
-                        //self.performSegue(withIdentifier: "LoginSegue", sender: nil)
+                        self.performSegue(withIdentifier: "UnlockingSegue", sender: nil)
                     })
                     
                 default:
@@ -107,5 +115,11 @@ class StartByNumberController : UIViewController {
         }
         ConfirmCycleNumberErrorLabel.isHidden = true
         return true
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard let unlocking = segue.destination as? UnlockingController else {return}
+        unlocking.rideExists = rideExists
+        unlocking.CycleNumber = CycleNumber
     }
 }

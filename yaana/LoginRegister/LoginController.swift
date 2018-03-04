@@ -36,7 +36,7 @@ class LoginController : UIViewController,UITextFieldDelegate {
         if (isUserNameValid && isPasswordValid) {
             
             let queries : Array<Any> = ["userName", mobileNumber, "password", password]
-            let (urlSession, urlRequest) = self.view.makeHttpRequest(path: "/token/yaana/login",queries: queries,method: "POST", body: nil)
+            let (urlSession, urlRequest) = self.view.makeHttpRequest(path: "/token/yaana/login",queries: queries,method: "POST", body: nil, accepts: "application/json")
             
             let dataTask = urlSession.dataTask(with: urlRequest)
             {
@@ -62,13 +62,22 @@ class LoginController : UIViewController,UITextFieldDelegate {
                         KeychainWrapper.standard.set(userLoginDomain.userDomain.displayName, forKey:"yaana_name")
                         KeychainWrapper.standard.set(userLoginDomain.userDomain.email, forKey:"yaana_email")
                         KeychainWrapper.standard.set(userLoginDomain.userDomain.mobileNo, forKey:"yaana_mobile_no")
+                        KeychainWrapper.standard.set(userLoginDomain.userDomain.rideExists, forKey:"yaana_ride_exists")
 
                         DispatchQueue.main.async(execute: {
                             
+                            if(userLoginDomain.userDomain.rideExists){
+                                let storyboard = UIStoryboard(name: "RideMap", bundle: nil)
+                                let controller = storyboard.instantiateViewController(withIdentifier: "RideMapController") as UIViewController
+                                let appDelegate = (UIApplication.shared.delegate as! AppDelegate)
+                                appDelegate.window?.rootViewController = controller
+                            }
+                            else{
                                 let storyboard = UIStoryboard(name: "MainMap", bundle: nil)
                                 let controller = storyboard.instantiateViewController(withIdentifier: "MainMapController") as UIViewController
                                 let appDelegate = (UIApplication.shared.delegate as! AppDelegate)
                                 appDelegate.window?.rootViewController = controller
+                            }
                             
                             }
                         )

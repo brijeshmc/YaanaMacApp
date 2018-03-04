@@ -64,7 +64,7 @@ class RegisterOtpController : UIViewController, UITextFieldDelegate {
 
             let userDomainData = try? JSONEncoder.init().encode(userDomain)
             let queries : Array<Any> = ["otp", otp, "androidId",  "a454a546aa"]
-            let (urlSession, urlRequest) = self.view.makeHttpRequest(path: "/token/yaana/users",queries: queries,method: "POST", body: userDomainData)
+            let (urlSession, urlRequest) = self.view.makeHttpRequest(path: "/token/yaana/users",queries: queries,method: "POST", body: userDomainData, accepts: "application/json")
             
             let dataTask = urlSession.dataTask(with: urlRequest)
             {
@@ -113,7 +113,7 @@ class RegisterOtpController : UIViewController, UITextFieldDelegate {
     
     @IBAction func resendOtpButton(_ sender: Any) {
         let queries : Array<Any> = ["mobileNumber", mobileNumber]
-        let (urlSession, urlRequest) = self.view.makeHttpRequest(path: "/token/yaana/register/otp",queries: queries,method: "PUT", body: nil)
+        let (urlSession, urlRequest) = self.view.makeHttpRequest(path: "/token/yaana/register/otp",queries: queries,method: "PUT", body: nil, accepts: "application/json")
         
         let dataTask = urlSession.dataTask(with: urlRequest)
         {

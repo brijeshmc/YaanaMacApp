@@ -77,7 +77,7 @@ class RegisterController : UIViewController, UITextFieldDelegate {
         if(isDobValid && isConfirmPasswordValid && isPasswordValid && isMobileNumberValid && isEmailValid && isDisplayNameValid){
             
             let queries : Array<Any> = ["mobileNumber", mobileNumberValue]
-            let (urlSession, urlRequest) = self.view.makeHttpRequest(path: "/token/yaana/register/otp",queries: queries,method: "PUT", body: nil)
+            let (urlSession, urlRequest) = self.view.makeHttpRequest(path: "/token/yaana/register/otp",queries: queries,method: "PUT", body: nil, accepts: "application/json")
             
             let dataTask = urlSession.dataTask(with: urlRequest)
             {

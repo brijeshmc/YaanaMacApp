@@ -2,7 +2,7 @@ import UIKit
 
 extension UIView {
 
-    func makeHttpRequest(path : String, queries : Array<Any>?, method : String, body : Data?) -> (urlSession : URLSession, urlRequest : URLRequest){
+    func makeHttpRequest(path : String, queries : Array<Any>?, method : String, body : Data?, accepts : String) -> (urlSession : URLSession, urlRequest : URLRequest){
         let configuration = URLSessionConfiguration .default
         let session = URLSession(configuration: configuration)
         
@@ -31,7 +31,7 @@ extension UIView {
         request.httpMethod = method
         request.timeoutInterval = 30
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.addValue("application/json", forHTTPHeaderField: "Accept")
+        request.addValue(accepts, forHTTPHeaderField: "Accept")
         if(token != nil && token != ""){
             token = "yaanaAuthToken \(token!)"
             request.addValue(token!, forHTTPHeaderField: "RequestAuthorization")
