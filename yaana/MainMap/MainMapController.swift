@@ -69,7 +69,87 @@ class MainMapController: UIViewController,CLLocationManagerDelegate  {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        guard let startByNumber = segue.destination as? StartByNumberController else {return}
+        guard let startByNumber = segue.destination as? StartByNumberController else {
+            guard let rideDetails = segue.destination as? RideDetailsController else {
+                return
+            }
+            rideDetails.navigationItem.title = "View Controller Pizza"
+            navigationItem.title = "Pizza to One"
+            
+            //rideDetails.navigationController?.view.backgroundColor = UIColor.orange
+            //rideDetails.navigationController?.view.tintColor = UIColor.white
+            rideDetails.navigationItem.title = "Ride Details"
+            navigationItem.title = "Back"
+            //For back button in navigation bar
+            //let backButton = UIBarButtonItem()
+            //backButton.title = "Back"
+            //rideDetails.navigationController?.navigationBar.topItem?.backBarButtonItem = backButton
+            
+            rideDetails.ToastMessage = self.ToastMessage
+            return
+        }
         startByNumber.rideExists = rideExists!
+    }
+    
+    @IBAction func endRideButton(_ sender: Any) {
+        let userId = KeychainWrapper.standard.integer(forKey: "yaana_user_id")
+        
+        let (urlSession, urlRequest) = self.view.makeHttpRequest(path: "/yaana/bicycles/ride/\(userId!)/terminate",queries: nil, method: "PUT", body: nil, accepts: "application/json")
+        
+        let dataTask = urlSession.dataTask(with: urlRequest)
+        {
+            ( data: Data?, response: URLResponse?, error: Error?) -> Void in
+            guard let httpResponse = response as? HTTPURLResponse, let receivedData = data
+                else {
+                    DispatchQueue.main.async(execute: {
+                        self.view.makeToast(message: "Unable to connect to server", duration: 2.0, position: HRToastPositionDefault as AnyObject)
+                        
+                    })
+                    return
+            }
+            
+            switch (httpResponse.statusCode)
+            {
+            case 200:
+                
+                do {
+                    _ = try JSONDecoder().decode(RideDomain.self, from: receivedData)
+
+                    DispatchQueue.main.async(execute: {
+                        self.ToastMessage = "Your ride has ended"
+                        KeychainWrapper.standard.set(false, forKey:"yaana_ride_exists")
+                        
+                        self.performSegue(withIdentifier: "RideDetailsSegue", sender: nil)
+
+                    })
+                } catch {
+                    print("Error info: \(error)")
+                    DispatchQueue.main.async(execute: {
+                        self.view.makeToast(message: "Internal Server Error", duration: 2.0, position: HRToastPositionDefault as AnyObject)
+                        
+                    })
+                    return
+                }
+                
+            default:
+                do{
+                    let errorDomain = try JSONDecoder().decode(ErrorDomain.self, from: receivedData)
+                    DispatchQueue.main.async(execute: {
+                        if(errorDomain.errorCode != 0){
+                            self.view.makeToast(message: errorDomain.errorMessage, duration: 2.0, position: HRToastPositionDefault as AnyObject)
+                        }
+                        else{
+                            self.view.makeToast(message: "Internal Server Error", duration: 2.0, position: HRToastPositionDefault as AnyObject)
+                        }
+                    })
+                }
+                catch{
+                    DispatchQueue.main.async(execute: {
+                        self.view.makeToast(message: "Internal Server Error", duration: 2.0, position: HRToastPositionDefault as AnyObject)
+                    })
+                }
+            }
+        }
+        dataTask.resume()
     }
 }
