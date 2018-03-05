@@ -28,7 +28,7 @@ class UnlockingController : UIViewController {
     
     @objc func getLockStatus(){
         
-            let queries : Array<Any> = ["lockId", CycleNumber]
+        let queries : Array<Any> = ["lockId", CycleNumber]
             
         let (urlSession, urlRequest) = self.view.makeHttpRequest(path: "/yaana/lock/getLockStatus",queries: queries, method: "GET", body: nil, accepts : "text/plain")
             
@@ -53,6 +53,7 @@ class UnlockingController : UIViewController {
                         if(LockStatus == "false"){
                             if(self.self.rideExists == false){
                                 KeychainWrapper.standard.set(true, forKey:"yaana_ride_exists")
+                                KeychainWrapper.standard.set(self.CycleNumber, forKey:"yaana_cycle_number")
                                 self.ToastMessage = "Unlock successful. Your ride has started"
                             }
                             else{

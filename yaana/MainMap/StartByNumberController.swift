@@ -11,7 +11,7 @@ class StartByNumberController : UIViewController {
     @IBOutlet weak var ConfirmCycleNumberErrorLabel: UILabel!
     var CycleNumber = ""
     var ConfirmCycleNumber = ""
-    
+    var ToastMessage : String! = ""
     var rideExists : Bool!
     
     override func viewDidLoad() {
@@ -31,7 +31,8 @@ class StartByNumberController : UIViewController {
         let isCycleNumberValid = ValidateCycleNumber(cycleNumber : CycleNumber)
         
         if(isConfirmCycleNumberValid && isCycleNumberValid){
-            
+            KeychainWrapper.standard.set(CycleNumber, forKey:"yaana_cycle_number")
+
             let userId = KeychainWrapper.standard.integer(forKey: "yaana_user_id")
             
             let queries : Array<Any> = ["lockId", CycleNumber, "userId",  String(describing: userId!), "promoCode",  ""]
@@ -70,7 +71,14 @@ class StartByNumberController : UIViewController {
                         let errorDomain = try JSONDecoder().decode(ErrorDomain.self, from: receivedData)
                         DispatchQueue.main.async(execute: {
                             if(errorDomain.errorCode != 0){
-                                self.view.makeToast(message: errorDomain.errorMessage, duration: 2.0, position: HRToastPositionDefault as AnyObject)
+                                if(errorDomain.errorCode == 1015){
+                                    KeychainWrapper.standard.set(true, forKey:"yaana_ride_exists")
+                                    self.performSegue(withIdentifier: "MainMapSegue", sender: nil)
+                                    self.ToastMessage = errorDomain.errorMessage
+                                }
+                                else{
+                                    self.view.makeToast(message: errorDomain.errorMessage, duration: 2.0, position: HRToastPositionDefault as AnyObject)
+                                }
                             }
                             else{
                                 self.view.makeToast(message: "Internal Server Error", duration: 2.0, position: HRToastPositionDefault as AnyObject)
@@ -118,7 +126,11 @@ class StartByNumberController : UIViewController {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        guard let unlocking = segue.destination as? UnlockingController else {return}
+        guard let unlocking = segue.destination as? UnlockingController else {
+            guard let mainMap = segue.destination as? MainMapController else {return}
+            mainMap.ToastMessage = ToastMessage
+            return
+        }
         unlocking.rideExists = rideExists
         unlocking.CycleNumber = CycleNumber
     }

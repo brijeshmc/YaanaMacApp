@@ -27,6 +27,7 @@
 		22651E07202A24FE0068C0C9 /* KeychainItemAccessibility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22651E06202A24FD0068C0C9 /* KeychainItemAccessibility.swift */; };
 		22673DF020413E5300377111 /* MainMap.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 22673DEF20413E5300377111 /* MainMap.storyboard */; };
 		22673DF220413EF300377111 /* MainMapController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22673DF120413EF300377111 /* MainMapController.swift */; };
+		226AA305204DB09900FB3271 /* ParkingDomain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 226AA304204DB09900FB3271 /* ParkingDomain.swift */; };
 		227FB8B12026EA0B00ECF83C /* UserDomain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 227FB8B02026EA0B00ECF83C /* UserDomain.swift */; };
 		22895964204B1481006325C4 /* UnlockingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22895963204B1481006325C4 /* UnlockingController.swift */; };
 		22895967204BD854006325C4 /* RideMap.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 22895966204BD854006325C4 /* RideMap.storyboard */; };
@@ -86,6 +87,7 @@
 		22651E06202A24FD0068C0C9 /* KeychainItemAccessibility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeychainItemAccessibility.swift; sourceTree = "<group>"; };
 		22673DEF20413E5300377111 /* MainMap.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = MainMap.storyboard; sourceTree = "<group>"; };
 		22673DF120413EF300377111 /* MainMapController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMapController.swift; sourceTree = "<group>"; };
+		226AA304204DB09900FB3271 /* ParkingDomain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParkingDomain.swift; sourceTree = "<group>"; };
 		227FB8B02026EA0B00ECF83C /* UserDomain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDomain.swift; sourceTree = "<group>"; };
 		22895963204B1481006325C4 /* UnlockingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnlockingController.swift; sourceTree = "<group>"; };
 		22895966204BD854006325C4 /* RideMap.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = RideMap.storyboard; sourceTree = "<group>"; };
@@ -195,6 +197,7 @@
 				2289596A204C6930006325C4 /* RideDomain.swift */,
 				2289596C204C6ACA006325C4 /* LockStatusDomain.swift */,
 				2289596E204C6B01006325C4 /* DiscountDomain.swift */,
+				226AA304204DB09900FB3271 /* ParkingDomain.swift */,
 			);
 			path = Domain;
 			sourceTree = "<group>";
@@ -515,6 +518,7 @@
 				22673DF220413EF300377111 /* MainMapController.swift in Sources */,
 				22651E03202A1A2B0068C0C9 /* AppUrl.swift in Sources */,
 				225756BB203DF88700958458 /* ErrorDomain.swift in Sources */,
+				226AA305204DB09900FB3271 /* ParkingDomain.swift in Sources */,
 				2264DFD02030BA760026FE5C /* RegisterController.swift in Sources */,
 				2289596B204C6930006325C4 /* RideDomain.swift in Sources */,
 				22529C172011F79000A99F80 /* LoginRegisterController.swift in Sources */,
