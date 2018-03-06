@@ -7,7 +7,6 @@ class MainMapController: UIViewController,CLLocationManagerDelegate  {
     @IBOutlet var startRideContainerView: UIView!
     @IBOutlet var endRideContainerView: UIView!
     
-    var resultsArray = [String]()
     var googleMapsView:GMSMapView!
     var locationManager = CLLocationManager()
     var rideExists : Bool? = false
@@ -69,7 +68,7 @@ class MainMapController: UIViewController,CLLocationManagerDelegate  {
             guard let httpResponse = response as? HTTPURLResponse, let receivedData = data
                 else {
                     DispatchQueue.main.async(execute: {
-                        self.ToastMessage = "Unable to connect to server"
+                        self.view.makeToast(message: "Unable to connect to server", duration: 2.0, position: HRToastPositionDefault as AnyObject)
                     })
                     return
             }
@@ -115,20 +114,17 @@ class MainMapController: UIViewController,CLLocationManagerDelegate  {
                     let errorDomain = try JSONDecoder().decode(ErrorDomain.self, from: receivedData)
                     DispatchQueue.main.async(execute: {
                         if(errorDomain.errorCode != 0){
-                            if(errorDomain.errorCode == 1015){
-                                KeychainWrapper.standard.set(true, forKey:"yaana_ride_exists")
-                            }
-                            self.ToastMessage = errorDomain.errorMessage
+                            self.view.makeToast(message: errorDomain.errorMessage, duration: 2.0, position: HRToastPositionDefault as AnyObject)
                         }
                         else{
-                            self.ToastMessage = "Internal Server Error"
+                            self.view.makeToast(message: "Internal Server Error", duration: 2.0, position: HRToastPositionDefault as AnyObject)
                         }
                     })
                 }
                 catch{
                     DispatchQueue.main.async(execute: {
-                        self.ToastMessage = "Internal Server Error"
-                        
+                        self.view.makeToast(message: "Internal Server Error", duration: 2.0, position: HRToastPositionDefault as AnyObject)
+
                     })
                 }
             }
@@ -147,7 +143,7 @@ class MainMapController: UIViewController,CLLocationManagerDelegate  {
             guard let httpResponse = response as? HTTPURLResponse, let receivedData = data
                 else {
                     DispatchQueue.main.async(execute: {
-                        self.ToastMessage = "Unable to connect to server"
+                        self.view.makeToast(message: "Unable to connect to server", duration: 2.0, position: HRToastPositionDefault as AnyObject)
                     })
                     return
             }
@@ -193,20 +189,17 @@ class MainMapController: UIViewController,CLLocationManagerDelegate  {
                     let errorDomain = try JSONDecoder().decode(ErrorDomain.self, from: receivedData)
                     DispatchQueue.main.async(execute: {
                         if(errorDomain.errorCode != 0){
-                            if(errorDomain.errorCode == 1015){
-                                KeychainWrapper.standard.set(true, forKey:"yaana_ride_exists")
-                            }
-                            self.ToastMessage = errorDomain.errorMessage
+                            self.view.makeToast(message: errorDomain.errorMessage, duration: 2.0, position: HRToastPositionDefault as AnyObject)
                         }
                         else{
-                            self.ToastMessage = "Internal Server Error"
+                            self.view.makeToast(message: "Internal Server Error", duration: 2.0, position: HRToastPositionDefault as AnyObject)
                         }
                     })
                 }
                 catch{
                     DispatchQueue.main.async(execute: {
-                        self.ToastMessage = "Internal Server Error"
-                        
+                        self.view.makeToast(message: "Internal Server Error", duration: 2.0, position: HRToastPositionDefault as AnyObject)
+
                     })
                 }
             }
