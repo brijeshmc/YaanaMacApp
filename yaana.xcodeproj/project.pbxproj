@@ -41,10 +41,15 @@
 		22E6CC4920487CB9008BEE55 /* StartByNumberController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22E6CC4820487CB9008BEE55 /* StartByNumberController.swift */; };
 		6E2006A81FF415E800ACC982 /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = 6E2006A71FF415E700ACC982 /* Podfile */; };
 		6E9262191FF1553A00AE279F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E9262181FF1553A00AE279F /* AppDelegate.swift */; };
-		6E92621B1FF1553A00AE279F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E92621A1FF1553A00AE279F /* ViewController.swift */; };
-		6E92621E1FF1553A00AE279F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6E92621C1FF1553A00AE279F /* Main.storyboard */; };
 		6E92622E1FF1553B00AE279F /* yaanaTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E92622D1FF1553B00AE279F /* yaanaTests.swift */; };
 		6E9262391FF1553B00AE279F /* yaanaUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E9262381FF1553B00AE279F /* yaanaUITests.swift */; };
+		AB8CDC2320518D5400DF5AC7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AB8CDC2220518D5400DF5AC7 /* Main.storyboard */; };
+		AB8CDC2520518D6500DF5AC7 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB8CDC2420518D6500DF5AC7 /* MainViewController.swift */; };
+		AB8CDC272051B89B00DF5AC7 /* MainViewController+UITableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB8CDC262051B89B00DF5AC7 /* MainViewController+UITableView.swift */; };
+		AB8CDC312051BE2000DF5AC7 /* MainMenuProfileCellTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB8CDC2F2051BE2000DF5AC7 /* MainMenuProfileCellTableViewCell.swift */; };
+		AB8CDC322051BE2000DF5AC7 /* MainMenuProfileCellTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AB8CDC302051BE2000DF5AC7 /* MainMenuProfileCellTableViewCell.xib */; };
+		AB8CDC352051BE8C00DF5AC7 /* MainMenuOtherCells.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB8CDC332051BE8B00DF5AC7 /* MainMenuOtherCells.swift */; };
+		AB8CDC362051BE8C00DF5AC7 /* MainMenuOtherCells.xib in Resources */ = {isa = PBXBuildFile; fileRef = AB8CDC342051BE8B00DF5AC7 /* MainMenuOtherCells.xib */; };
 		DD293053E8B4C27B8579FD08 /* libPods-yaana.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C36D8B15A16F2152E3A57FDC /* libPods-yaana.a */; };
 /* End PBXBuildFile section */
 
@@ -104,8 +109,6 @@
 		6E2006A71FF415E700ACC982 /* Podfile */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Podfile; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		6E9262151FF1553A00AE279F /* yaana.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = yaana.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6E9262181FF1553A00AE279F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		6E92621A1FF1553A00AE279F /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		6E92621D1FF1553A00AE279F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		6E9262241FF1553A00AE279F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6E9262291FF1553A00AE279F /* yaanaTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = yaanaTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		6E92622D1FF1553B00AE279F /* yaanaTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = yaanaTests.swift; sourceTree = "<group>"; };
@@ -115,6 +118,13 @@
 		6E92623A1FF1553B00AE279F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		71514C2711CB2DEB7D8CB975 /* Pods-yaana.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-yaana.debug.xcconfig"; path = "Pods/Target Support Files/Pods-yaana/Pods-yaana.debug.xcconfig"; sourceTree = "<group>"; };
 		7942A7CD50A269FCB4CDE4CF /* Pods-yaana.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-yaana.release.xcconfig"; path = "Pods/Target Support Files/Pods-yaana/Pods-yaana.release.xcconfig"; sourceTree = "<group>"; };
+		AB8CDC2220518D5400DF5AC7 /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		AB8CDC2420518D6500DF5AC7 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		AB8CDC262051B89B00DF5AC7 /* MainViewController+UITableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MainViewController+UITableView.swift"; sourceTree = "<group>"; };
+		AB8CDC2F2051BE2000DF5AC7 /* MainMenuProfileCellTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuProfileCellTableViewCell.swift; sourceTree = "<group>"; };
+		AB8CDC302051BE2000DF5AC7 /* MainMenuProfileCellTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainMenuProfileCellTableViewCell.xib; sourceTree = "<group>"; };
+		AB8CDC332051BE8B00DF5AC7 /* MainMenuOtherCells.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuOtherCells.swift; sourceTree = "<group>"; };
+		AB8CDC342051BE8B00DF5AC7 /* MainMenuOtherCells.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainMenuOtherCells.xib; sourceTree = "<group>"; };
 		C36D8B15A16F2152E3A57FDC /* libPods-yaana.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-yaana.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -157,15 +167,6 @@
 				223173EC204182320065C49E /* RegisterOtpController.swift */,
 			);
 			path = LoginRegister;
-			sourceTree = "<group>";
-		};
-		22529C182011FBE600A99F80 /* Main */ = {
-			isa = PBXGroup;
-			children = (
-				6E92621A1FF1553A00AE279F /* ViewController.swift */,
-				6E92621C1FF1553A00AE279F /* Main.storyboard */,
-			);
-			path = Main;
 			sourceTree = "<group>";
 		};
 		22651E01202A19AF0068C0C9 /* Constants */ = {
@@ -254,11 +255,11 @@
 		6E9262171FF1553A00AE279F /* yaana */ = {
 			isa = PBXGroup;
 			children = (
+				AB8CDC2120518D4000DF5AC7 /* Main */,
 				22895965204BD80D006325C4 /* RideMap */,
 				22673DEC20413DC100377111 /* MainMap */,
 				22651E01202A19AF0068C0C9 /* Constants */,
 				227FB8AF2026E9AE00ECF83C /* Domain */,
-				22529C182011FBE600A99F80 /* Main */,
 				22529C122011EC2900A99F80 /* LoginRegister */,
 				22067576200BD9E000236C2D /* GoogleService-Info.plist */,
 				6E9262181FF1553A00AE279F /* AppDelegate.swift */,
@@ -288,6 +289,44 @@
 				6E92623A1FF1553B00AE279F /* Info.plist */,
 			);
 			path = yaanaUITests;
+			sourceTree = "<group>";
+		};
+		AB8CDC2120518D4000DF5AC7 /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				AB8CDC2A2051BD0700DF5AC7 /* Cells */,
+				AB8CDC292051BCF400DF5AC7 /* ViewControllers */,
+				AB8CDC282051BCE500DF5AC7 /* WireFrame */,
+			);
+			path = Main;
+			sourceTree = "<group>";
+		};
+		AB8CDC282051BCE500DF5AC7 /* WireFrame */ = {
+			isa = PBXGroup;
+			children = (
+				AB8CDC2220518D5400DF5AC7 /* Main.storyboard */,
+			);
+			path = WireFrame;
+			sourceTree = "<group>";
+		};
+		AB8CDC292051BCF400DF5AC7 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				AB8CDC2420518D6500DF5AC7 /* MainViewController.swift */,
+				AB8CDC262051B89B00DF5AC7 /* MainViewController+UITableView.swift */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		AB8CDC2A2051BD0700DF5AC7 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				AB8CDC2F2051BE2000DF5AC7 /* MainMenuProfileCellTableViewCell.swift */,
+				AB8CDC302051BE2000DF5AC7 /* MainMenuProfileCellTableViewCell.xib */,
+				AB8CDC332051BE8B00DF5AC7 /* MainMenuOtherCells.swift */,
+				AB8CDC342051BE8B00DF5AC7 /* MainMenuOtherCells.xib */,
+			);
+			path = Cells;
 			sourceTree = "<group>";
 		};
 		B27E22F6DE415992B1A4399E /* Pods */ = {
@@ -411,12 +450,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				22067577200BD9E000236C2D /* GoogleService-Info.plist in Resources */,
-				6E92621E1FF1553A00AE279F /* Main.storyboard in Resources */,
+				AB8CDC322051BE2000DF5AC7 /* MainMenuProfileCellTableViewCell.xib in Resources */,
 				22529C142011EC7300A99F80 /* LoginRegister.storyboard in Resources */,
 				22067579200BFB2300236C2D /* Assets.xcassets in Resources */,
 				22673DF020413E5300377111 /* MainMap.storyboard in Resources */,
 				22895967204BD854006325C4 /* RideMap.storyboard in Resources */,
 				22529C112011E75B00A99F80 /* launch_icon.png in Resources */,
+				AB8CDC2320518D5400DF5AC7 /* Main.storyboard in Resources */,
+				AB8CDC362051BE8C00DF5AC7 /* MainMenuOtherCells.xib in Resources */,
 				22630D272010F67400B15E99 /* LaunchScreen.storyboard in Resources */,
 				6E2006A81FF415E800ACC982 /* Podfile in Resources */,
 			);
@@ -521,6 +562,7 @@
 				22673DF220413EF300377111 /* MainMapController.swift in Sources */,
 				2266073D204F0CBA003260D6 /* ParkingController.swift in Sources */,
 				22651E03202A1A2B0068C0C9 /* AppUrl.swift in Sources */,
+				AB8CDC272051B89B00DF5AC7 /* MainViewController+UITableView.swift in Sources */,
 				225756BB203DF88700958458 /* ErrorDomain.swift in Sources */,
 				226AA305204DB09900FB3271 /* ParkingDomain.swift in Sources */,
 				2264DFD02030BA760026FE5C /* RegisterController.swift in Sources */,
@@ -528,17 +570,19 @@
 				22529C172011F79000A99F80 /* LoginRegisterController.swift in Sources */,
 				223173ED204182320065C49E /* RegisterOtpController.swift in Sources */,
 				2251D31D20138DE700D08001 /* LoginController.swift in Sources */,
-				6E92621B1FF1553A00AE279F /* ViewController.swift in Sources */,
 				22253A52202E3C17008F740A /* UIToast.swift in Sources */,
 				22651E07202A24FE0068C0C9 /* KeychainItemAccessibility.swift in Sources */,
 				223173EF204201E00065C49E /* HttpRequest.swift in Sources */,
 				22651E05202A24C50068C0C9 /* KeychainWrapper.swift in Sources */,
+				AB8CDC2520518D6500DF5AC7 /* MainViewController.swift in Sources */,
 				2289596D204C6ACA006325C4 /* LockStatusDomain.swift in Sources */,
 				22895964204B1481006325C4 /* UnlockingController.swift in Sources */,
 				22895969204BDBBA006325C4 /* RideMapController.swift in Sources */,
 				6E9262191FF1553A00AE279F /* AppDelegate.swift in Sources */,
 				22895971204C78D7006325C4 /* RideDetailsController.swift in Sources */,
+				AB8CDC352051BE8C00DF5AC7 /* MainMenuOtherCells.swift in Sources */,
 				22E6CC4920487CB9008BEE55 /* StartByNumberController.swift in Sources */,
+				AB8CDC312051BE2000DF5AC7 /* MainMenuProfileCellTableViewCell.swift in Sources */,
 				2289596F204C6B01006325C4 /* DiscountDomain.swift in Sources */,
 				227FB8B12026EA0B00ECF83C /* UserDomain.swift in Sources */,
 			);
@@ -582,14 +626,6 @@
 				22630D262010F67400B15E99 /* Base */,
 			);
 			name = LaunchScreen.storyboard;
-			sourceTree = "<group>";
-		};
-		6E92621C1FF1553A00AE279F /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				6E92621D1FF1553A00AE279F /* Base */,
-			);
-			name = Main.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
