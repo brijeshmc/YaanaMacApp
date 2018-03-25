@@ -11,7 +11,8 @@ class MainMapController: UIViewController,CLLocationManagerDelegate  {
     var locationManager = CLLocationManager()
     var rideExists : Bool? = false
     var ToastMessage : String! = ""
-        
+    var RideDetails : RideDomain!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -50,11 +51,6 @@ class MainMapController: UIViewController,CLLocationManagerDelegate  {
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-    }
-    
-    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error)
-    {
-        print("Error" + error.localizedDescription)
     }
     
     func updateCycleLocation(latitude : Double, longitude : Double){
@@ -225,6 +221,12 @@ class MainMapController: UIViewController,CLLocationManagerDelegate  {
      print("destructive")
      }}*/
     
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error)
+    {
+        print("Error" + error.localizedDescription)
+        self.view.makeToast(message: "Unable to fetch the current location", duration: 2.0, position: HRToastPositionDefault as AnyObject)
+    }
+    
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation])
     {
         //let userLocation = locations.last
@@ -250,8 +252,8 @@ class MainMapController: UIViewController,CLLocationManagerDelegate  {
             guard let rideDetails = segue.destination as? RideDetailsController else {
                 return
             }
-            
             rideDetails.ToastMessage = self.ToastMessage
+            rideDetails.RideDetails = self.RideDetails
             return
         }
         startByNumber.rideExists = rideExists!
@@ -279,7 +281,7 @@ class MainMapController: UIViewController,CLLocationManagerDelegate  {
             case 200:
                 
                 do {
-                    _ = try JSONDecoder().decode(RideDomain.self, from: receivedData)
+                    self.RideDetails = try JSONDecoder().decode(RideDomain.self, from: receivedData)
 
                     DispatchQueue.main.async(execute: {
                         self.ToastMessage = "Your ride has ended"
