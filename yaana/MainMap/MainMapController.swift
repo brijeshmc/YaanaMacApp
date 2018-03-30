@@ -1,17 +1,28 @@
 import UIKit
 import GoogleMaps
+import SlideMenuControllerSwift
 
-class MainMapController: UIViewController,CLLocationManagerDelegate  {
+class MainMapController: SlideMenuController, CLLocationManagerDelegate  {
     
     @IBOutlet var googleMapsContainerView: UIView!
     @IBOutlet var startRideContainerView: UIView!
     @IBOutlet var endRideContainerView: UIView!
+    @IBOutlet weak var sliderToggleView: UIView!
     
     var googleMapsView:GMSMapView!
     var locationManager = CLLocationManager()
     var rideExists : Bool? = false
     var ToastMessage : String! = ""
     var RideDetails : RideDomain!
+    
+    override func awakeFromNib() {
+        //self.mainViewController = self
+        if let controller = self.storyboard?.instantiateViewController(withIdentifier: "SliderViewController") {
+            self.leftViewController = controller
+        }
+
+        super.awakeFromNib()
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,10 +44,18 @@ class MainMapController: UIViewController,CLLocationManagerDelegate  {
         self.googleMapsView.isMyLocationEnabled = true
         self.googleMapsView.settings.myLocationButton = true
         self.view.addSubview(self.googleMapsView)
-        
+        self.view.bringSubview(toFront: sliderToggleView)
+
         if(ToastMessage.count > 0){
             self.view.makeToast(message: ToastMessage, duration: 2.0, position: HRToastPositionDefault as AnyObject)
         }
+    }
+    
+    @IBAction func sliderButtonClicked(_ sender: Any) {
+        //self.openLeft()
+        self.slideMenuController()?.openLeft()
+        self.view.bringSubview(toFront: self.leftContainerView)
+
     }
     
     @IBAction func refreshButtonClicked(_ sender: Any) {
