@@ -48,7 +48,7 @@
                                     <segue destination="3xu-N6-Ya9" kind="show" id="Suo-0x-xtj"/>
                                 </connections>
                             </button>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="launch_icon.png" translatesAutoresizingMaskIntoConstraints="NO" id="foS-vb-VpH">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="launch_icon" translatesAutoresizingMaskIntoConstraints="NO" id="foS-vb-VpH">
                                 <rect key="frame" x="82" y="250.66666666666663" width="250" height="185"/>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="yaana_background" translatesAutoresizingMaskIntoConstraints="NO" id="KJH-KO-cF7">
@@ -572,10 +572,11 @@
         </scene>
     </scenes>
     <resources>
+        <image name="launch_icon" width="250" height="185"/>
         <image name="launch_icon.png" width="250" height="185"/>
         <image name="yaana_background" width="638" height="185"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="2h1-45-m2o"/>
+        <segue reference="Suo-0x-xtj"/>
     </inferredMetricsTieBreakers>
 </document>
