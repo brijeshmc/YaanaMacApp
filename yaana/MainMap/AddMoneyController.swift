@@ -1,23 +1,137 @@
 import UIKit
 import DropDown
 
-class AddMoneyController : UIViewController{
+class AddMoneyController : UIViewController, PGTransactionDelegate{
+    
+    func didFinishedResponse(_ controller: PGTransactionViewController!, response responseString: String!) {
+        self.view.makeToast(message: "Success", duration: 2.0, position: HRToastPositionDefault as AnyObject)
+        self.removeController(controller: controller)
+    }
+    
+    func didCancelTrasaction(_ controller: PGTransactionViewController!) {
+        self.view.makeToast(message: "Cancelled", duration: 2.0, position: HRToastPositionDefault as AnyObject)
+        self.removeController(controller: controller)
+    }
+    
+    func errorMisssingParameter(_ controller: PGTransactionViewController!, error: Error!) {
+
+        self.view.makeToast(message: "Error", duration: 2.0, position: HRToastPositionDefault as AnyObject)
+        
+        self.removeController(controller: controller)
+    }
+    
     
     let promoCodeDropDown = DropDown()
     var promocodesList : [String] = []
     var UserDiscounts : [UserDiscountDomain]! = []
 
+    @IBOutlet weak var AmountErrorLabel: UILabel!
     @IBOutlet weak var PromoCodeButton: UIView!
-
+    @IBOutlet weak var AmountTextField: UITextField!
     @IBOutlet weak var PromoCodeTextField: UITextField!
     @IBAction func PromoCode(_ sender: Any) {
-        PromoCodeTextField.resignFirstResponder()
-        promoCodeDropDown.show()
+        AmountTextField.resignFirstResponder()
+        if promocodesList.count == 0 {
+            self.showAlert(message: "No promo codes available")
+        }
+        else {
+            promoCodeDropDown.show()
+        }
     }
     
+    @IBAction func NextButton(_ sender: Any) {
+        let amountValid = validateAmount(amount : AmountTextField.text!)
+        if amountValid {
+            let userId = KeychainWrapper.standard.integer(forKey: "yaana_user_id")
+            let queries : Array<Any> = ["userId", "\(userId!)", "amount", AmountTextField.text!]
+
+            let (urlSession, urlRequest) = self.view.makeHttpRequest(path: "/yaana/getPaytmPayload",queries: queries, method: "GET", body: nil, accepts: "application/json")
+            
+            let dataTask = urlSession.dataTask(with: urlRequest)
+            {
+                ( data: Data?, response: URLResponse?, error: Error?) -> Void in
+                guard let httpResponse = response as? HTTPURLResponse, let receivedData = data
+                    else {
+                        DispatchQueue.main.async(execute: {
+                            self.view.makeToast(message: "Unable to connect to server", duration: 2.0, position: HRToastPositionDefault as AnyObject)
+                            
+                        })
+                        return
+                }
+                
+                switch (httpResponse.statusCode)
+                {
+                case 200:
+                    
+                    do {
+                        let orderDict = try JSONDecoder().decode(Dictionary<String, Any>.self, from: receivedData)
+                        
+                        DispatchQueue.main.async(execute: {
+                            let merchantConfiguration : PGMerchantConfiguration = PGMerchantConfiguration.default()
+                            let order = PGOrder(params :orderDict)
+                            let txnController = PGTransactionViewController.init(transactionFor: order)
+                            txnController?.serverType = eServerTypeProduction
+                            txnController?.merchant = merchantConfiguration
+                            txnController?.delegate = self
+                            self.showController(controller: txnController!)
+                        })
+                        
+                    } catch {
+                        
+                        DispatchQueue.main.async(execute: {
+                            self.view.makeToast(message: "Internal Server Error", duration: 2.0, position: HRToastPositionDefault as AnyObject)
+                            
+                        })
+                        return
+                    }
+                    
+                default:
+                    do{
+                        let errorDomain = try JSONDecoder().decode(ErrorDomain.self, from: receivedData)
+                        DispatchQueue.main.async(execute: {
+                            if(errorDomain.errorCode != 0){
+                                self.view.makeToast(message: errorDomain.errorMessage, duration: 2.0, position: HRToastPositionDefault as AnyObject)
+                            }
+                            else{
+                                self.view.makeToast(message: "Internal Server Error", duration: 2.0, position: HRToastPositionDefault as AnyObject)
+                            }
+                        })
+                    }
+                    catch{
+                        DispatchQueue.main.async(execute: {
+                            self.view.makeToast(message: "Internal Server Error", duration: 2.0, position: HRToastPositionDefault as AnyObject)
+                        })
+                    }
+                }
+            }
+            dataTask.resume()
+        }
+    }
+    
+    func showController(controller: PGTransactionViewController) {
+        
+        if self.navigationController != nil {
+            self.navigationController!.pushViewController(controller, animated: true)
+        }
+        else {
+            self.present(controller, animated: true, completion: {() -> Void in
+            })
+        }
+    }
+    
+    func removeController(controller: PGTransactionViewController) {
+        if self.navigationController != nil {
+            self.navigationController!.popViewController(animated: true)
+        }
+        else {
+            controller.dismiss(animated: true, completion: {() -> Void in
+            })
+        }
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        AmountErrorLabel.isHidden = true
+        AmountTextField.becomeFirstResponder()
         promoCodeDropDown.anchorView = PromoCodeButton // UIView or UIBarButtonItem
         
         promoCodeDropDown.dismissMode = .onTap
@@ -32,4 +146,22 @@ class AddMoneyController : UIViewController{
             self.PromoCodeTextField.text = item
         }
     }
+    
+    func validateAmount(amount : String) -> Bool {
+        let enteredAmount = Int(amount)
+        if(enteredAmount == nil || enteredAmount! <= 0){
+            AmountTextField.becomeFirstResponder()
+            AmountErrorLabel.text = "Amount is required"
+            AmountErrorLabel.isHidden = false
+            return false
+        }
+        AmountErrorLabel.isHidden = true
+        return true
+    }
+    func showAlert(message : String){
+        let alert = UIAlertController(title: "", message: message, preferredStyle: UIAlertControllerStyle.alert)
+        alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+        self.present(alert, animated: true, completion: nil)
+    }
 }
+
