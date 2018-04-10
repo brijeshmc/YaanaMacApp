@@ -3,19 +3,94 @@ import DropDown
 
 class AddMoneyController : UIViewController, PGTransactionDelegate{
     
+    var RedeemableBalance : Double! = 0
+    var PromotionalBalance : Double! = 0
+    
+    func updateTransactionResponse(transactionResponse : Data){
+        let userId = KeychainWrapper.standard.integer(forKey: "yaana_user_id")
+        let queries : Array<Any> = ["userId", "\(userId!)", "promoCode", PromoCodeTextField.text!]
+        
+        let (urlSession, urlRequest) = self.view.makeHttpRequest(path: "/yaana/payment",queries: queries, method: "POST", body: transactionResponse, accepts: "application/json")
+        
+        let dataTask = urlSession.dataTask(with: urlRequest)
+        {
+            ( data: Data?, response: URLResponse?, error: Error?) -> Void in
+            guard let httpResponse = response as? HTTPURLResponse, let receivedData = data
+                else {
+                    DispatchQueue.main.async(execute: {
+                        self.view.makeToast(message: "Unable to connect to server", duration: 2.0, position: HRToastPositionDefault as AnyObject)
+                        
+                    })
+                    return
+            }
+            
+            switch (httpResponse.statusCode)
+            {
+            case 200:
+                
+                do {
+                    let paymentResponse = try JSONDecoder().decode(PaymentStatusUpdateResponse.self, from: receivedData)
+                    
+                    DispatchQueue.main.async(execute: {
+                        if paymentResponse.status == "TXN_SUCCESS" {
+                            self.view.makeToast(message: "Payment successful", duration: 2.0, position: HRToastPositionDefault as AnyObject)
+                        }
+                        else{
+                            self.view.makeToast(message: "Payment failed", duration: 2.0, position: HRToastPositionDefault as AnyObject)
+
+                        }
+                        self.showMyWalletScreen()
+                    })
+                    
+                } catch {
+                    
+                    DispatchQueue.main.async(execute: {
+                        self.view.makeToast(message: "Internal Server Error", duration: 2.0, position: HRToastPositionDefault as AnyObject)
+                        
+                    })
+                    return
+                }
+                
+            default:
+                do{
+                    let errorDomain = try JSONDecoder().decode(ErrorDomain.self, from: receivedData)
+                    DispatchQueue.main.async(execute: {
+                        if(errorDomain.errorCode != 0){
+                            self.view.makeToast(message: errorDomain.errorMessage, duration: 2.0, position: HRToastPositionDefault as AnyObject)
+                        }
+                        else{
+                            self.view.makeToast(message: "Internal Server Error", duration: 2.0, position: HRToastPositionDefault as AnyObject)
+                        }
+                    })
+                }
+                catch{
+                    DispatchQueue.main.async(execute: {
+                        self.view.makeToast(message: "Internal Server Error", duration: 2.0, position: HRToastPositionDefault as AnyObject)
+                    })
+                }
+            }
+        }
+        dataTask.resume()
+    }
+    
     func didFinishedResponse(_ controller: PGTransactionViewController!, response responseString: String!) {
-        self.view.makeToast(message: "Success", duration: 2.0, position: HRToastPositionDefault as AnyObject)
+        if let data = responseString.data(using: .utf8) {
+            updateTransactionResponse(transactionResponse: data)
+        }
+        else{
+            self.view.makeToast(message: "Internal Server Error", duration: 2.0, position: HRToastPositionDefault as AnyObject)
+        }
         self.removeController(controller: controller)
     }
     
     func didCancelTrasaction(_ controller: PGTransactionViewController!) {
-        self.view.makeToast(message: "Cancelled", duration: 2.0, position: HRToastPositionDefault as AnyObject)
+        self.view.makeToast(message: "Payment Cancelled", duration: 2.0, position: HRToastPositionDefault as AnyObject)
         self.removeController(controller: controller)
     }
     
     func errorMisssingParameter(_ controller: PGTransactionViewController!, error: Error!) {
 
-        self.view.makeToast(message: "Error", duration: 2.0, position: HRToastPositionDefault as AnyObject)
+        self.view.makeToast(message: "Internal Server Error", duration: 2.0, position: HRToastPositionDefault as AnyObject)
         
         self.removeController(controller: controller)
     }
@@ -64,7 +139,7 @@ class AddMoneyController : UIViewController, PGTransactionDelegate{
                 case 200:
                     
                     do {
-                        let orderDict = try JSONDecoder().decode(Dictionary<String, Any>.self, from: receivedData)
+                        let orderDict = try JSONDecoder().decode(Dictionary<String, String>.self, from: receivedData)
                         
                         DispatchQueue.main.async(execute: {
                             let merchantConfiguration : PGMerchantConfiguration = PGMerchantConfiguration.default()
@@ -162,6 +237,75 @@ class AddMoneyController : UIViewController, PGTransactionDelegate{
         let alert = UIAlertController(title: "", message: message, preferredStyle: UIAlertControllerStyle.alert)
         alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
         self.present(alert, animated: true, completion: nil)
+    }
+    
+    func showMyWalletScreen(){
+        let userId = KeychainWrapper.standard.integer(forKey: "yaana_user_id")
+        
+        let (urlSession, urlRequest) = self.view.makeHttpRequest(path: "/yaana/users/\(userId!)",queries: nil, method: "GET", body: nil, accepts: "application/json")
+        
+        let dataTask = urlSession.dataTask(with: urlRequest)
+        {
+            ( data: Data?, response: URLResponse?, error: Error?) -> Void in
+            guard let httpResponse = response as? HTTPURLResponse, let receivedData = data
+                else {
+                    DispatchQueue.main.async(execute: {
+                        self.view.makeToast(message: "Unable to connect to server", duration: 2.0, position: HRToastPositionDefault as AnyObject)
+                        
+                    })
+                    return
+            }
+            
+            switch (httpResponse.statusCode)
+            {
+            case 200:
+                
+                do {
+                    let userDomain = try JSONDecoder().decode(UserDomain.self, from: receivedData)
+                    
+                    DispatchQueue.main.async(execute: {
+                        self.RedeemableBalance = userDomain.balanceAmount
+                        self.PromotionalBalance = userDomain.promoBalance
+                        self.performSegue(withIdentifier: "MyWalletSegue", sender: nil)
+                    })
+                    
+                } catch {
+                    
+                    DispatchQueue.main.async(execute: {
+                        self.view.makeToast(message: "Internal Server Error", duration: 2.0, position: HRToastPositionDefault as AnyObject)
+                        
+                    })
+                    return
+                }
+                
+            default:
+                do{
+                    let errorDomain = try JSONDecoder().decode(ErrorDomain.self, from: receivedData)
+                    DispatchQueue.main.async(execute: {
+                        if(errorDomain.errorCode != 0){
+                            self.view.makeToast(message: errorDomain.errorMessage, duration: 2.0, position: HRToastPositionDefault as AnyObject)
+                        }
+                        else{
+                            self.view.makeToast(message: "Internal Server Error", duration: 2.0, position: HRToastPositionDefault as AnyObject)
+                        }
+                    })
+                }
+                catch{
+                    DispatchQueue.main.async(execute: {
+                        self.view.makeToast(message: "Internal Server Error", duration: 2.0, position: HRToastPositionDefault as AnyObject)
+                    })
+                }
+            }
+        }
+        dataTask.resume()
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard let myWallet = segue.destination as? PaymentController else {
+            return
+        }
+        myWallet.RedeemableBalance = RedeemableBalance!
+        myWallet.PromotionalBalance = PromotionalBalance!
     }
 }
 
