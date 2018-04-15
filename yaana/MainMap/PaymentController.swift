@@ -79,6 +79,9 @@ class PaymentController : UIViewController {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        /*guard let destinationNavigationController = segue.destination as? UINavigationController else {
+            return
+        }*/
         guard let addMoney = segue.destination as? AddMoneyController else {
             return
         }

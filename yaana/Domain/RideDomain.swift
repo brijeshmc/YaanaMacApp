@@ -5,7 +5,7 @@ struct RideDomain : Codable {
     
     let rideId : Int64;
     let rideCode : String?
-    let lockStatus : LockStatusDomain
+    let lockStatus : LockStatusDomain?
     let userId : Int64
     let startTime : String
     let endTime : String
@@ -17,8 +17,8 @@ struct RideDomain : Codable {
     let ended : Bool
     let amountPayable : Double
     let amountPaid : Double
-    let sourceParking : String
-    let destinationParking : String
+    let sourceParking : String?
+    let destinationParking : String?
     let totalRideTime : Int64
     let tax : Double
 

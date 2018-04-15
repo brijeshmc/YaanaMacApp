@@ -5,12 +5,70 @@ class SliderViewController : UIViewController {
     
     var RedeemableBalance : Double! = 0
     var PromotionalBalance : Double! = 0
-    
+    var UserRides : [RideDomain] = []
+    var promotions : [UserDiscountDomain]! = []
+
     override func viewDidLoad() {
         super.viewDidLoad()
     }
     
     @IBAction func PromotionsButton(_ sender: Any) {
+        let userId = KeychainWrapper.standard.integer(forKey: "yaana_user_id")
+        
+        let (urlSession, urlRequest) = self.view.makeHttpRequest(path: "/yaana/user-discounts/\(userId!)",queries: nil, method: "GET", body: nil, accepts: "application/json")
+        
+        let dataTask = urlSession.dataTask(with: urlRequest)
+        {
+            ( data: Data?, response: URLResponse?, error: Error?) -> Void in
+            guard let httpResponse = response as? HTTPURLResponse, let receivedData = data
+                else {
+                    DispatchQueue.main.async(execute: {
+                        self.view.makeToast(message: "Unable to connect to server", duration: 2.0, position: HRToastPositionDefault as AnyObject)
+                        
+                    })
+                    return
+            }
+            
+            switch (httpResponse.statusCode)
+            {
+            case 200:
+                
+                do {
+                    self.promotions = try JSONDecoder().decode([UserDiscountDomain].self, from: receivedData)
+                    
+                    DispatchQueue.main.async(execute: {
+                        self.performSegue(withIdentifier: "PromotionsSegue", sender: nil)
+                    })
+                    
+                } catch {
+                    
+                    DispatchQueue.main.async(execute: {
+                        self.view.makeToast(message: "Internal Server Error", duration: 2.0, position: HRToastPositionDefault as AnyObject)
+                        
+                    })
+                    return
+                }
+                
+            default:
+                do{
+                    let errorDomain = try JSONDecoder().decode(ErrorDomain.self, from: receivedData)
+                    DispatchQueue.main.async(execute: {
+                        if(errorDomain.errorCode != 0){
+                            self.view.makeToast(message: errorDomain.errorMessage, duration: 2.0, position: HRToastPositionDefault as AnyObject)
+                        }
+                        else{
+                            self.view.makeToast(message: "Internal Server Error", duration: 2.0, position: HRToastPositionDefault as AnyObject)
+                        }
+                    })
+                }
+                catch{
+                    DispatchQueue.main.async(execute: {
+                        self.view.makeToast(message: "Internal Server Error", duration: 2.0, position: HRToastPositionDefault as AnyObject)
+                    })
+                }
+            }
+        }
+        dataTask.resume()
     }
     
     @IBAction func MyWalletButton(_ sender: Any) {
@@ -83,17 +141,89 @@ class SliderViewController : UIViewController {
     }
     
     @IBAction func MyRidesButton(_ sender: Any) {
-    }
-    
-    @IBAction func AboutUsButton(_ sender: Any) {
+        let userId = KeychainWrapper.standard.integer(forKey: "yaana_user_id")
+        let (urlSession, urlRequest) = self.view.makeHttpRequest(path: "/yaana/users/rides/\(userId!)",queries: nil, method: "GET", body: nil, accepts: "application/json")
         
+        let dataTask = urlSession.dataTask(with: urlRequest)
+        {
+            ( data: Data?, response: URLResponse?, error: Error?) -> Void in
+            guard let httpResponse = response as? HTTPURLResponse, let receivedData = data
+                else {
+                    DispatchQueue.main.async(execute: {
+                        self.view.makeToast(message: "Unable to connect to server", duration: 2.0, position: HRToastPositionDefault as AnyObject)
+                        
+                    })
+                    return
+            }
+            
+            switch (httpResponse.statusCode)
+            {
+            case 200:
+                
+                do {
+                    self.UserRides = try JSONDecoder().decode([RideDomain].self, from: receivedData)
+                    
+                    DispatchQueue.main.async(execute: {
+                        self.performSegue(withIdentifier: "MyRidesSegue", sender: nil)
+                    })
+                    
+                } catch {
+                    print(error)
+                    DispatchQueue.main.async(execute: {
+                        self.view.makeToast(message: "Internal Server Error", duration: 2.0, position: HRToastPositionDefault as AnyObject)
+                        
+                    })
+                    return
+                }
+                
+            default:
+                do{
+                    let errorDomain = try JSONDecoder().decode(ErrorDomain.self, from: receivedData)
+                    DispatchQueue.main.async(execute: {
+                        if(errorDomain.errorCode != 0){
+                            self.view.makeToast(message: errorDomain.errorMessage, duration: 2.0, position: HRToastPositionDefault as AnyObject)
+                        }
+                        else{
+                            self.view.makeToast(message: "Internal Server Error", duration: 2.0, position: HRToastPositionDefault as AnyObject)
+                        }
+                    })
+                }
+                catch{
+                    DispatchQueue.main.async(execute: {
+                        self.view.makeToast(message: "Internal Server Error", duration: 2.0, position: HRToastPositionDefault as AnyObject)
+                    })
+                }
+            }
+        }
+        dataTask.resume()
     }
     
     @IBAction func SignOutButton(_ sender: Any) {
+        _ = KeychainWrapper.standard.removeAllKeys()
+        
+        let storyboard = UIStoryboard(name: "LoginRegister", bundle: nil)
+        let controller = storyboard.instantiateViewController(withIdentifier: "LoginRegisterController") as UIViewController
+        let appDelegate = (UIApplication.shared.delegate as! AppDelegate)
+        appDelegate.window?.rootViewController = controller
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        guard let myWallet = segue.destination as? PaymentController else {
+        guard let destinationNavigationController = segue.destination as? UINavigationController else {
+            /*guard let promotions = segue.destination as? PromotionsController else {
+                return
+            }
+            promotions.promotions = self.promotions*/
+            return
+        }
+        guard let myWallet = destinationNavigationController.topViewController as? PaymentController else {
+            guard let myRides = destinationNavigationController.topViewController as? MyRidesController else {
+                guard let promotions = destinationNavigationController.topViewController as? PromotionsController else {
+                    return
+                }
+                promotions.promotions = self.promotions
+                return
+            }
+            myRides.myRides = self.UserRides
             return
         }
         myWallet.RedeemableBalance = RedeemableBalance!

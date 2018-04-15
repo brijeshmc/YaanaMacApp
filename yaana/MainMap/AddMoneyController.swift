@@ -99,7 +99,9 @@ class AddMoneyController : UIViewController, PGTransactionDelegate{
     let promoCodeDropDown = DropDown()
     var promocodesList : [String] = []
     var UserDiscounts : [UserDiscountDomain]! = []
-
+    var amount : Double! = 0
+    var promoCode : String! = ""
+    
     @IBOutlet weak var AmountErrorLabel: UILabel!
     @IBOutlet weak var PromoCodeButton: UIView!
     @IBOutlet weak var AmountTextField: UITextField!
@@ -115,10 +117,11 @@ class AddMoneyController : UIViewController, PGTransactionDelegate{
     }
     
     @IBAction func NextButton(_ sender: Any) {
-        let amountValid = validateAmount(amount : AmountTextField.text!)
+        let amountValid = validateAmount(amount : AmountTextField.text!, promoCode: PromoCodeTextField.text!)
         if amountValid {
             let userId = KeychainWrapper.standard.integer(forKey: "yaana_user_id")
-            let queries : Array<Any> = ["userId", "\(userId!)", "amount", AmountTextField.text!]
+            amount = Double(AmountTextField.text!)
+            let queries : Array<Any> = ["userId", "\(userId!)", "amount", "\(Int(amount))"]
 
             let (urlSession, urlRequest) = self.view.makeHttpRequest(path: "/yaana/getPaytmPayload",queries: queries, method: "GET", body: nil, accepts: "application/json")
             
@@ -162,6 +165,7 @@ class AddMoneyController : UIViewController, PGTransactionDelegate{
                     
                 default:
                     do{
+                        print(receivedData)
                         let errorDomain = try JSONDecoder().decode(ErrorDomain.self, from: receivedData)
                         DispatchQueue.main.async(execute: {
                             if(errorDomain.errorCode != 0){
@@ -205,6 +209,9 @@ class AddMoneyController : UIViewController, PGTransactionDelegate{
     }
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        AmountTextField.text = "\(Int(amount!))"
+        PromoCodeTextField.text = promoCode
         AmountErrorLabel.isHidden = true
         AmountTextField.becomeFirstResponder()
         promoCodeDropDown.anchorView = PromoCodeButton // UIView or UIBarButtonItem
@@ -213,6 +220,9 @@ class AddMoneyController : UIViewController, PGTransactionDelegate{
         promoCodeDropDown.direction = .any
         promoCodeDropDown.backgroundColor = UIColor(white: 1, alpha: 1)
         promoCodeDropDown.bottomOffset = CGPoint(x: 0, y: PromoCodeButton.bounds.height)
+        if(UserDiscounts.count > 0){
+            promocodesList.append("")
+        }
         for userDiscount in UserDiscounts {
             promocodesList.append(userDiscount.discount.discountCode)
         }
@@ -222,13 +232,25 @@ class AddMoneyController : UIViewController, PGTransactionDelegate{
         }
     }
     
-    func validateAmount(amount : String) -> Bool {
-        let enteredAmount = Int(amount)
+    func validateAmount(amount : String, promoCode : String) -> Bool {
+        let enteredAmount = Double(amount)
         if(enteredAmount == nil || enteredAmount! <= 0){
             AmountTextField.becomeFirstResponder()
             AmountErrorLabel.text = "Amount is required"
             AmountErrorLabel.isHidden = false
             return false
+        }
+        if(promoCode != ""){
+            let userDiscount = getUserDiscountDomain(promoCode: promoCode)
+            if(userDiscount != nil){
+                let minAmount : Double! = userDiscount?.discount.minAmount
+                if(Double(amount)! < minAmount!){
+                    AmountTextField.becomeFirstResponder()
+                    AmountErrorLabel.text = "Minimum amount of \u{20B9}\(minAmount!) required"
+                    AmountErrorLabel.isHidden = false
+                    return false
+                }
+            }
         }
         AmountErrorLabel.isHidden = true
         return true
@@ -306,6 +328,15 @@ class AddMoneyController : UIViewController, PGTransactionDelegate{
         }
         myWallet.RedeemableBalance = RedeemableBalance!
         myWallet.PromotionalBalance = PromotionalBalance!
+    }
+    
+    func  getUserDiscountDomain(promoCode : String) -> UserDiscountDomain?{
+        for userDiscount in UserDiscounts {
+            if(userDiscount.discount.discountCode == promoCode){
+                return userDiscount
+            }
+        }
+        return nil
     }
 }
 
