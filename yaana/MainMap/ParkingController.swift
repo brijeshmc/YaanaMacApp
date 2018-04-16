@@ -16,7 +16,8 @@ class ParkingController : UIViewController, CLLocationManagerDelegate, GMSMapVie
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        AddressField.layer.borderWidth = 1
+        AddressField.layer.borderColor = UIColor.black.cgColor
         locationManager.delegate = self
         locationManager.requestWhenInUseAuthorization()
         locationManager.desiredAccuracy = kCLLocationAccuracyBest

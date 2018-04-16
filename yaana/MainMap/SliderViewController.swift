@@ -7,11 +7,69 @@ class SliderViewController : UIViewController {
     var PromotionalBalance : Double! = 0
     var UserRides : [RideDomain] = []
     var promotions : [UserDiscountDomain]! = []
+    var defaultIssues : [IssueDomain]! = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
     }
     
+    @IBAction func HelpCentreButton(_ sender: Any) {
+        
+        let (urlSession, urlRequest) = self.view.makeHttpRequest(path: "/yaana/issues",queries: nil, method: "GET", body: nil, accepts: "application/json")
+        
+        let dataTask = urlSession.dataTask(with: urlRequest)
+        {
+            ( data: Data?, response: URLResponse?, error: Error?) -> Void in
+            guard let httpResponse = response as? HTTPURLResponse, let receivedData = data
+                else {
+                    DispatchQueue.main.async(execute: {
+                        self.view.makeToast(message: "Unable to connect to server", duration: 2.0, position: HRToastPositionDefault as AnyObject)
+                        
+                    })
+                    return
+            }
+            
+            switch (httpResponse.statusCode)
+            {
+            case 200:
+                
+                do {
+                    self.defaultIssues = try JSONDecoder().decode([IssueDomain].self, from: receivedData)
+                    
+                    DispatchQueue.main.async(execute: {
+                        self.performSegue(withIdentifier: "HelpCentreSegue", sender: nil)
+                    })
+                    
+                } catch {
+                    
+                    DispatchQueue.main.async(execute: {
+                        self.view.makeToast(message: "Internal Server Error", duration: 2.0, position: HRToastPositionDefault as AnyObject)
+                        
+                    })
+                    return
+                }
+                
+            default:
+                do{
+                    let errorDomain = try JSONDecoder().decode(ErrorDomain.self, from: receivedData)
+                    DispatchQueue.main.async(execute: {
+                        if(errorDomain.errorCode != 0){
+                            self.view.makeToast(message: errorDomain.errorMessage, duration: 2.0, position: HRToastPositionDefault as AnyObject)
+                        }
+                        else{
+                            self.view.makeToast(message: "Internal Server Error", duration: 2.0, position: HRToastPositionDefault as AnyObject)
+                        }
+                    })
+                }
+                catch{
+                    DispatchQueue.main.async(execute: {
+                        self.view.makeToast(message: "Internal Server Error", duration: 2.0, position: HRToastPositionDefault as AnyObject)
+                    })
+                }
+            }
+        }
+        dataTask.resume()
+    }
     @IBAction func PromotionsButton(_ sender: Any) {
         let userId = KeychainWrapper.standard.integer(forKey: "yaana_user_id")
         
@@ -199,12 +257,38 @@ class SliderViewController : UIViewController {
     }
     
     @IBAction func SignOutButton(_ sender: Any) {
-        _ = KeychainWrapper.standard.removeAllKeys()
-        
-        let storyboard = UIStoryboard(name: "LoginRegister", bundle: nil)
-        let controller = storyboard.instantiateViewController(withIdentifier: "LoginRegisterController") as UIViewController
-        let appDelegate = (UIApplication.shared.delegate as! AppDelegate)
-        appDelegate.window?.rootViewController = controller
+        self.showAlert(message: "Are you sure you want to sign out?")
+    }
+    
+    func showAlert(message : String){
+        let alert = UIAlertController(title: "", message: message, preferredStyle: UIAlertControllerStyle.alert)
+        alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { action in
+            switch action.style{
+            case .default:
+                _ = KeychainWrapper.standard.removeAllKeys()
+                
+                let storyboard = UIStoryboard(name: "LoginRegister", bundle: nil)
+                let controller = storyboard.instantiateViewController(withIdentifier: "LoginRegisterController") as UIViewController
+                let appDelegate = (UIApplication.shared.delegate as! AppDelegate)
+                appDelegate.window?.rootViewController = controller
+            case .cancel:
+                print("cancel")
+                
+            case .destructive:
+                print("destructive")
+            }}))
+        alert.addAction(UIAlertAction(title: "No", style: .cancel, handler: { action in
+            switch action.style{
+            case .default:
+                print("default")
+                
+            case .cancel:
+                print("cancel")
+                
+            case .destructive:
+                print("destructive")
+            }}))
+        self.present(alert, animated: true, completion: nil)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -218,6 +302,10 @@ class SliderViewController : UIViewController {
         guard let myWallet = destinationNavigationController.topViewController as? PaymentController else {
             guard let myRides = destinationNavigationController.topViewController as? MyRidesController else {
                 guard let promotions = destinationNavigationController.topViewController as? PromotionsController else {
+                    guard let helpCentre = destinationNavigationController.topViewController as? HelpCentreController else {
+                        return
+                    }
+                    helpCentre.defaultIssues = self.defaultIssues
                     return
                 }
                 promotions.promotions = self.promotions
