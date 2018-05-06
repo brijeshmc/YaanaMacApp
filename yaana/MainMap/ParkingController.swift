@@ -7,12 +7,18 @@ class ParkingController : UIViewController, CLLocationManagerDelegate, GMSMapVie
     var googleMapsView:GMSMapView!
     var locationManager = CLLocationManager()
 
+    @IBOutlet weak var backArrow: UIImageView!
+    @IBOutlet weak var backLabel: UILabel!
+    @IBOutlet weak var backButton: UIButton!
     @IBOutlet weak var AddressField: UITextView!
     @IBOutlet weak var PinIcon: UIImageView!
     @IBAction func SearchParkingClicked(_ sender: Any) {
         let latitude = self.googleMapsView.camera.target.latitude
         let longitude = self.googleMapsView.camera.target.longitude
         updateParkingLocation(latitude: latitude, longitude: longitude)
+    }
+    @IBAction func backButton(_ sender: Any) {
+        removeController(controller: self)
     }
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,6 +36,9 @@ class ParkingController : UIViewController, CLLocationManagerDelegate, GMSMapVie
         self.googleMapsView.settings.myLocationButton = true
         self.view.addSubview(self.googleMapsView)
         self.view.bringSubview(toFront: PinIcon)
+        self.view.bringSubview(toFront: backButton)
+        self.view.bringSubview(toFront: backLabel)
+        self.view.bringSubview(toFront: backArrow)
     }
     
     override func didReceiveMemoryWarning() {
@@ -173,5 +182,14 @@ class ParkingController : UIViewController, CLLocationManagerDelegate, GMSMapVie
                     self.AddressField.text = addressString
                 }
         })
+    }
+    func removeController(controller: ParkingController) {
+        if self.navigationController != nil {
+            self.navigationController!.popViewController(animated: true)
+        }
+        else {
+            controller.dismiss(animated: true, completion: {() -> Void in
+            })
+        }
     }
 }

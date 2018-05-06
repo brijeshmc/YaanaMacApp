@@ -13,7 +13,11 @@ class StartByNumberController : UIViewController {
     var ConfirmCycleNumber = ""
     var ToastMessage : String! = ""
     var rideExists : Bool!
+    var controller : MainMapController!
     
+    @IBAction func backButton(_ sender: Any) {
+        removeController(controller: controller)
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         CycleNumberField.becomeFirstResponder()
@@ -133,5 +137,15 @@ class StartByNumberController : UIViewController {
         }
         unlocking.rideExists = rideExists
         unlocking.CycleNumber = CycleNumber
+    }
+    
+    func removeController(controller: MainMapController) {
+        if self.navigationController != nil {
+            self.navigationController!.popViewController(animated: true)
+        }
+        else {
+            controller.dismiss(animated: true, completion: {() -> Void in
+            })
+        }
     }
 }

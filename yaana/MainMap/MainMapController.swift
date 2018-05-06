@@ -276,6 +276,7 @@ class MainMapController: SlideMenuController, CLLocationManagerDelegate  {
             return
         }
         startByNumber.rideExists = rideExists!
+        startByNumber.controller = self
     }
     
     @IBAction func endRideButton(_ sender: Any) {
