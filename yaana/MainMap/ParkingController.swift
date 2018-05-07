@@ -155,31 +155,33 @@ class ParkingController : UIViewController, CLLocationManagerDelegate, GMSMapVie
         
         geoCoder.reverseGeocodeLocation(location, completionHandler:
             {(placemarks, error) in
-                if (error != nil)
+                if (error != nil || placemarks == nil)
                 {
                     self.AddressField.text = addressString
                 }
-                let pm = placemarks! as [CLPlacemark]
-                
-                if pm.count > 0 {
-                    let pm = placemarks![0]
-                
-                    if pm.name != nil {
-                        addressString = addressString + pm.name!
+                else{
+                    let pm = placemarks! as [CLPlacemark]
+                    
+                    if pm.count > 0 {
+                        let pm = placemarks![0]
+                    
+                        if pm.name != nil {
+                            addressString = addressString + pm.name!
+                        }
+                        if pm.subLocality != nil {
+                            addressString = addressString + ", " + pm.subLocality!
+                        }
+                        if pm.thoroughfare != nil {
+                            addressString = addressString + ", " + pm.thoroughfare!
+                        }
+                        if pm.locality != nil {
+                            addressString = addressString + ", " +  pm.locality!
+                        }
+                        if pm.administrativeArea != nil {
+                            addressString = addressString + ", " + pm.administrativeArea!
+                        }
+                        self.AddressField.text = addressString
                     }
-                    if pm.subLocality != nil {
-                        addressString = addressString + ", " + pm.subLocality!
-                    }
-                    if pm.thoroughfare != nil {
-                        addressString = addressString + ", " + pm.thoroughfare!
-                    }
-                    if pm.locality != nil {
-                        addressString = addressString + ", " +  pm.locality!
-                    }
-                    if pm.administrativeArea != nil {
-                        addressString = addressString + ", " + pm.administrativeArea!
-                    }
-                    self.AddressField.text = addressString
                 }
         })
     }

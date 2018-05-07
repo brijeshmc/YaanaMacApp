@@ -13,10 +13,9 @@ class StartByNumberController : UIViewController {
     var ConfirmCycleNumber = ""
     var ToastMessage : String! = ""
     var rideExists : Bool!
-    var controller : MainMapController!
     
     @IBAction func backButton(_ sender: Any) {
-        removeController(controller: controller)
+        removeController(controller: self)
     }
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -64,6 +63,7 @@ class StartByNumberController : UIViewController {
                 
                 switch (httpResponse.statusCode)
                 {
+                    
                 case 200:
                     
                     DispatchQueue.main.async(execute: {
@@ -139,7 +139,7 @@ class StartByNumberController : UIViewController {
         unlocking.CycleNumber = CycleNumber
     }
     
-    func removeController(controller: MainMapController) {
+    func removeController(controller: StartByNumberController) {
         if self.navigationController != nil {
             self.navigationController!.popViewController(animated: true)
         }
