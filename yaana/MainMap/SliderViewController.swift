@@ -293,19 +293,15 @@ class SliderViewController : UIViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard let destinationNavigationController = segue.destination as? UINavigationController else {
-            /*guard let promotions = segue.destination as? PromotionsController else {
+            guard let helpCentre = segue.destination as? HelpCentreController else {
                 return
             }
-            promotions.promotions = self.promotions*/
+            helpCentre.defaultIssues = self.defaultIssues
             return
         }
         guard let myWallet = destinationNavigationController.topViewController as? PaymentController else {
             guard let myRides = destinationNavigationController.topViewController as? MyRidesController else {
                 guard let promotions = destinationNavigationController.topViewController as? PromotionsController else {
-                    guard let helpCentre = destinationNavigationController.topViewController as? HelpCentreController else {
-                        return
-                    }
-                    helpCentre.defaultIssues = self.defaultIssues
                     return
                 }
                 promotions.promotions = self.promotions

@@ -19,6 +19,9 @@ class HelpCentreController: UIViewController, CLLocationManagerDelegate {
     var longitude : Double! = 0
     var locationManager = CLLocationManager()
 
+    @IBAction func backButton(_ sender: Any) {
+        removeController(controller: self)
+    }
     @IBOutlet weak var IssueField: UITextField!
     @IBAction func IssueButtonClicked(_ sender: Any) {
         issuesDropDown.show()
@@ -156,7 +159,13 @@ class HelpCentreController: UIViewController, CLLocationManagerDelegate {
     }
     
     func removeController(controller: HelpCentreController) {
-            controller.dismiss(animated: true, completion: {() -> Void in})
+        if self.navigationController != nil {
+            self.navigationController!.popViewController(animated: true)
+        }
+        else {
+            controller.dismiss(animated: true, completion: {() -> Void in
+            })
         }
     }
+}
 

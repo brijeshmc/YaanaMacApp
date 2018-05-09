@@ -3,6 +3,9 @@ import WebKit
 
 class TermsAndConditionController : UIViewController {
     
+    @IBAction func backButton(_ sender: Any) {
+        removeController(controller: self)
+    }
     @IBOutlet weak var webView: WKWebView!
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -15,5 +18,15 @@ class TermsAndConditionController : UIViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    func removeController(controller: TermsAndConditionController) {
+        if self.navigationController != nil {
+            self.navigationController!.popViewController(animated: true)
+        }
+        else {
+            controller.dismiss(animated: true, completion: {() -> Void in
+            })
+        }
     }
 }
