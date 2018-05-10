@@ -84,4 +84,13 @@ class PaymentController : UIViewController {
         }
         addMoney.UserDiscounts = UserDiscounts
     }
+    
+    @IBAction func backButton(_ sender: Any) {
+        removeController(controller: self)
+    }
+    
+    func removeController(controller: PaymentController) {
+        controller.dismiss(animated: true, completion: {() -> Void in
+        })
+    }
 }

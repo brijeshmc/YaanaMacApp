@@ -159,13 +159,8 @@ class HelpCentreController: UIViewController, CLLocationManagerDelegate {
     }
     
     func removeController(controller: HelpCentreController) {
-        if self.navigationController != nil {
-            self.navigationController!.popViewController(animated: true)
-        }
-        else {
-            controller.dismiss(animated: true, completion: {() -> Void in
-            })
-        }
+        controller.dismiss(animated: true, completion: {() -> Void in
+        })
     }
 }
 

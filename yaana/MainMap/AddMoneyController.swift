@@ -207,6 +207,7 @@ class AddMoneyController : UIViewController, PGTransactionDelegate{
             })
         }
     }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         

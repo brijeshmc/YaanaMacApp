@@ -49,4 +49,13 @@ class MyRidesController : UIViewController, UICollectionViewDelegate, UICollecti
         rideDetails.RideDetails = self.RideDetails
         return
     }
+    
+    @IBAction func backButton(_ sender: Any) {
+        removeController(controller: self)
+    }
+    
+    func removeController(controller: MyRidesController) {
+        controller.dismiss(animated: true, completion: {() -> Void in
+        })
+    }
 }

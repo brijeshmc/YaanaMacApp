@@ -21,12 +21,7 @@ class TermsAndConditionController : UIViewController {
     }
     
     func removeController(controller: TermsAndConditionController) {
-        if self.navigationController != nil {
-            self.navigationController!.popViewController(animated: true)
-        }
-        else {
-            controller.dismiss(animated: true, completion: {() -> Void in
-            })
-        }
+        controller.dismiss(animated: true, completion: {() -> Void in
+        })
     }
 }

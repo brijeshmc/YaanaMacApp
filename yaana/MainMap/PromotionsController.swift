@@ -61,4 +61,13 @@ class PromotionsController: UIViewController, UICollectionViewDataSource, UIColl
         addMoney.amount = amount
         addMoney.promoCode = promoCode
     }
+    
+    @IBAction func backButton(_ sender: Any) {
+        removeController(controller: self)
+    }
+    
+    func removeController(controller: PromotionsController) {
+        controller.dismiss(animated: true, completion: {() -> Void in
+        })
+    }
 }

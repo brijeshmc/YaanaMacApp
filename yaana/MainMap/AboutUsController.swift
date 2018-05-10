@@ -3,9 +3,6 @@ import WebKit
 
 class AboutUsController : UIViewController {
     
-    @IBAction func backButton(_ sender: Any) {
-        removeController(controller: self)
-    }
     @IBOutlet weak var webView: WKWebView!
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,13 +17,11 @@ class AboutUsController : UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    @IBAction func backButton(_ sender: Any) {
+        removeController(controller: self)
+    }
     func removeController(controller: AboutUsController) {
-        if self.navigationController != nil {
-            self.navigationController!.popViewController(animated: true)
-        }
-        else {
-            controller.dismiss(animated: true, completion: {() -> Void in
-            })
-        }
+        controller.dismiss(animated: true, completion: {() -> Void in
+        })
     }
 }
